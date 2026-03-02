@@ -173,6 +173,15 @@ body {
   text-align: center;
   color: var(--gold);
   padding: 24px 16px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.sidebar-logo .logo-eye {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
 }
 .sidebar-sub {
   text-align: center;
@@ -1170,7 +1179,7 @@ body {
   <script>
 const T = {
 es: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Tu Guía Cósmica',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Tu Guía Cósmica',
   badge: 'Plataforma Líder en Astrología Personalizada',
   heroTitle: 'Descubre Tu Destino Cósmico',
   heroSub: '8 Tradiciones · 36 Servicios · 12 Packs',
@@ -1250,7 +1259,7 @@ es: {
   priceApprox: 'Precio aproximado. El monto final se confirma en el procesador de pago.'
 },
 en: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Your Cosmic Guide',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Your Cosmic Guide',
   badge: 'Leading Personalized Astrology Platform',
   heroTitle: 'Discover Your Cosmic Destiny',
   heroSub: '8 Traditions · 36 Services · 12 Packs',
@@ -1330,7 +1339,7 @@ en: {
   priceApprox: 'Approximate price. Final amount confirmed at payment processor.'
 },
 bg: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Твоят Космически Пътеводител',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Твоят Космически Пътеводител',
   badge: 'Водеща платформа за ИИ астрология',
   heroTitle: 'Открий Своята Космическа Съдба',
   heroSub: '8 Традиции · 36 Услуги · 12 Пакета',
@@ -1387,7 +1396,7 @@ bg: {
   priceApprox: 'Приблизителна цена. Окончателната сума се потвърждава при плащане.'
 },
 fr: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Votre Guide Cosmique',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Votre Guide Cosmique',
   badge: 'Plateforme Leader en Astrologie IA',
   heroTitle: 'Découvrez Votre Destin Cosmique',
   heroSub: '8 Traditions · 36 Services · 12 Packs',
@@ -1444,7 +1453,7 @@ fr: {
   priceApprox: 'Prix approximatif. Le montant final est confirmé lors du paiement.'
 },
 de: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Dein Kosmischer Führer',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Dein Kosmischer Führer',
   badge: 'Führende KI-Astrologie-Plattform',
   heroTitle: 'Entdecke Dein Kosmisches Schicksal',
   heroSub: '8 Traditionen · 36 Dienste · 12 Pakete',
@@ -1501,7 +1510,7 @@ de: {
   priceApprox: 'Ungefährer Preis. Der endgültige Betrag wird beim Zahlungsanbieter bestätigt.'
 },
 it: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'La Tua Guida Cosmica',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'La Tua Guida Cosmica',
   badge: 'Piattaforma Leader di Astrologia IA',
   heroTitle: 'Scopri il Tuo Destino Cosmico',
   heroSub: '8 Tradizioni · 36 Servizi · 12 Pack',
@@ -1558,7 +1567,7 @@ it: {
   priceApprox: 'Prezzo approssimativo. L\'importo finale viene confermato al momento del pagamento.'
 },
 pt: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Seu Guia Cósmico',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Seu Guia Cósmico',
   badge: 'Plataforma Líder em Astrologia IA',
   heroTitle: 'Descubra Seu Destino Cósmico',
   heroSub: '8 Tradições · 36 Serviços · 12 Packs',
@@ -1615,7 +1624,7 @@ pt: {
   priceApprox: 'Preço aproximado. O valor final é confirmado no processador de pagamento.'
 },
 ru: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Ваш Космический Путеводитель',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Ваш Космический Путеводитель',
   badge: 'Ведущая Платформа ИИ-Астрологии',
   heroTitle: 'Откройте Свою Космическую Судьбу',
   heroSub: '8 Традиций · 36 Услуг · 12 Пакетов',
@@ -1672,7 +1681,7 @@ ru: {
   priceApprox: 'Приблизительная цена. Итоговая сумма подтверждается при оплате.'
 },
 zh: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: '你的宇宙指南',
+  sidebarLogo: 'Astro Connect', sidebarSub: '你的宇宙指南',
   badge: '领先的AI占星平台',
   heroTitle: '探索你的宇宙命运',
   heroSub: '8 传统 · 36 服务 · 12 套餐',
@@ -1726,7 +1735,7 @@ zh: {
   priceApprox: '价格为近似值，最终金额以支付处理商确认为准。'
 },
 ja: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'あなたの宇宙ガイド',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'あなたの宇宙ガイド',
   badge: 'AI占星術リーディングプラットフォーム',
   heroTitle: 'あなたの宇宙の運命を発見',
   heroSub: '8 伝統 · 36 サービス · 12 パック',
@@ -1780,7 +1789,7 @@ ja: {
   priceApprox: '概算価格です。最終金額は決済時に確定されます。'
 },
 ko: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: '당신의 우주 가이드',
+  sidebarLogo: 'Astro Connect', sidebarSub: '당신의 우주 가이드',
   badge: '최고의 AI 점성술 플랫폼',
   heroTitle: '당신의 우주적 운명을 발견하세요',
   heroSub: '8 전통 · 36 서비스 · 12 팩',
@@ -1834,7 +1843,7 @@ ko: {
   priceApprox: '대략적인 가격입니다. 최종 금액은 결제 시 확정됩니다.'
 },
 ar: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'دليلك الكوني',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'دليلك الكوني',
   badge: 'منصة التنجيم الرائدة بالذكاء الاصطناعي',
   heroTitle: 'اكتشف مصيرك الكوني',
   heroSub: '8 تقاليد · 36 خدمة · 12 باقة',
@@ -1888,7 +1897,7 @@ ar: {
   priceApprox: 'سعر تقريبي. يتم تأكيد المبلغ النهائي عند الدفع.'
 },
 hi: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'आपका ब्रह्मांडीय मार्गदर्शक',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'आपका ब्रह्मांडीय मार्गदर्शक',
   badge: 'अग्रणी AI ज्योतिष मंच',
   heroTitle: 'अपनी ब्रह्मांडीय नियति खोजें',
   heroSub: '8 परंपराएं · 36 सेवाएं · 12 पैक',
@@ -1942,7 +1951,7 @@ hi: {
   priceApprox: 'अनुमानित मूल्य। अंतिम राशि भुगतान के समय पुष्टि होगी।'
 },
 tr: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Kozmik Rehberiniz',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Kozmik Rehberiniz',
   badge: 'Lider AI Astroloji Platformu',
   heroTitle: 'Kozmik Kaderinizi Keşfedin',
   heroSub: '8 Gelenek · 36 Hizmet · 12 Paket',
@@ -1996,7 +2005,7 @@ tr: {
   priceApprox: 'Yaklaşık fiyat. Nihai tutar ödeme sırasında onaylanır.'
 },
 nl: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Jouw Kosmische Gids',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Jouw Kosmische Gids',
   badge: 'Toonaangevend AI Astrologie Platform',
   heroTitle: 'Ontdek Jouw Kosmische Bestemming',
   heroSub: '8 Tradities · 36 Diensten · 12 Pakketten',
@@ -2050,7 +2059,7 @@ nl: {
   priceApprox: 'Geschatte prijs. Het uiteindelijke bedrag wordt bevestigd bij betaling.'
 },
 sv: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Din Kosmiska Guide',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Din Kosmiska Guide',
   badge: 'Ledande AI-astrologiplattform',
   heroTitle: 'Upptäck Ditt Kosmiska Öde',
   heroSub: '8 Traditioner · 36 Tjänster · 12 Paket',
@@ -2103,7 +2112,7 @@ sv: {
   priceApprox: 'Ungefärligt pris. Det slutliga beloppet bekräftas vid betalning.'
 },
 pl: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Twój Kosmiczny Przewodnik',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Twój Kosmiczny Przewodnik',
   badge: 'Wiodąca Platforma Astrologii AI',
   heroTitle: 'Odkryj Swoje Kosmiczne Przeznaczenie',
   heroSub: '8 Tradycji · 36 Usług · 12 Pakietów',
@@ -2156,7 +2165,7 @@ pl: {
   priceApprox: 'Cena przybliżona. Ostateczna kwota zostanie potwierdzona przy płatności.'
 },
 ro: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Ghidul Tău Cosmic',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Ghidul Tău Cosmic',
   badge: 'Platformă Lider de Astrologie AI', heroTitle: 'Descoperă-ți Destinul Cosmic',
   heroSub: '8 Tradiții · 36 Servicii · 12 Pachete',
   heroDesc: 'Cea mai completă platformă de astrologie din lume. AI de ultimă generație combinată cu 8 tradiții milenare.',
@@ -2194,7 +2203,7 @@ ro: {
   priceApprox: 'Preț aproximativ. Suma finală este confirmată la procesatorul de plăți.'
 },
 el: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Ο Κοσμικός σου Οδηγός',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Ο Κοσμικός σου Οδηγός',
   badge: 'Κορυφαία Πλατφόρμα Αστρολογίας AI', heroTitle: 'Ανακάλυψε την Κοσμική σου Μοίρα',
   heroSub: '8 Παραδόσεις · 36 Υπηρεσίες · 12 Πακέτα',
   heroDesc: 'Η πιο ολοκληρωμένη πλατφόρμα αστρολογίας στον κόσμο. Τεχνητή νοημοσύνη αιχμής με 8 χιλιετείς παραδόσεις.',
@@ -2232,7 +2241,7 @@ el: {
   priceApprox: 'Κατά προσέγγιση τιμή. Το τελικό ποσό επιβεβαιώνεται κατά την πληρωμή.'
 },
 th: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'คู่มือจักรวาลของคุณ',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'คู่มือจักรวาลของคุณ',
   badge: 'แพลตฟอร์มโหราศาสตร์ AI ชั้นนำ', heroTitle: 'ค้นพบโชคชะตาจักรวาลของคุณ',
   heroSub: '8 ประเพณี · 36 บริการ · 12 แพ็ค',
   heroDesc: 'แพลตฟอร์มโหราศาสตร์ที่สมบูรณ์ที่สุดในโลก AI ล้ำสมัยผสมผสาน 8 ประเพณีโบราณ',
@@ -2267,7 +2276,7 @@ th: {
   priceApprox: 'ราคาโดยประมาณ ยอดสุดท้ายจะยืนยันเมื่อชำระเงิน'
 },
 vi: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Hướng Dẫn Vũ Trụ',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Hướng Dẫn Vũ Trụ',
   badge: 'Nền tảng Chiêm tinh AI hàng đầu', heroTitle: 'Khám Phá Vận Mệnh Vũ Trụ',
   heroSub: '8 Truyền thống · 36 Dịch vụ · 12 Gói',
   heroDesc: 'Nền tảng chiêm tinh hoàn chỉnh nhất thế giới. AI tiên tiến kết hợp 8 truyền thống ngàn năm.',
@@ -2303,7 +2312,7 @@ vi: {
   priceApprox: 'Giá gần đúng. Số tiền cuối cùng được xác nhận khi thanh toán.'
 },
 id: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Panduan Kosmis Anda',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Panduan Kosmis Anda',
   badge: 'Platform Astrologi AI Terkemuka', heroTitle: 'Temukan Takdir Kosmis Anda',
   heroSub: '8 Tradisi · 36 Layanan · 12 Paket',
   heroDesc: 'Platform astrologi terlengkap di dunia. AI mutakhir dikombinasikan dengan 8 tradisi kuno.',
@@ -2339,7 +2348,7 @@ id: {
   priceApprox: 'Harga perkiraan. Jumlah akhir dikonfirmasi saat pembayaran.'
 },
 he: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'המדריך הקוסמי שלך',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'המדריך הקוסמי שלך',
   badge: 'פלטפורמת האסטרולוגיה המובילה עם AI', heroTitle: 'גלה את הגורל הקוסמי שלך',
   heroSub: '8 מסורות · 36 שירותים · 12 חבילות',
   heroDesc: 'פלטפורמת האסטרולוגיה המלאה ביותר בעולם. בינה מלאכותית מתקדמת בשילוב 8 מסורות עתיקות.',
@@ -2376,7 +2385,7 @@ he: {
   priceApprox: 'מחיר משוער. הסכום הסופי מאושר בעת התשלום.'
 },
 uk: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Ваш Космічний Путівник',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Ваш Космічний Путівник',
   badge: 'Провідна Платформа ШІ-Астрології', heroTitle: 'Відкрийте Свою Космічну Долю',
   heroSub: '8 Традицій · 36 Послуг · 12 Пакетів',
   heroDesc: 'Найповніша астрологічна платформа у світі. ШІ останнього покоління у поєднанні з 8 тисячолітніми традиціями.',
@@ -2413,7 +2422,7 @@ uk: {
   priceApprox: 'Орієнтовна ціна. Остаточна сума підтверджується при оплаті.'
 },
 cs: {
-  sidebarLogo: '✦ Astro Connect', sidebarSub: 'Váš Kosmický Průvodce',
+  sidebarLogo: 'Astro Connect', sidebarSub: 'Váš Kosmický Průvodce',
   badge: 'Přední AI Astrologická Platforma', heroTitle: 'Objevte Svůj Kosmický Osud',
   heroSub: '8 Tradic · 36 Služeb · 12 Balíčků',
   heroDesc: 'Nejkompletnější astrologická platforma na světě. Nejmodernější AI v kombinaci s 8 tisíciletými tradicemi.',
@@ -3452,7 +3461,7 @@ function initParticles() {
 function renderSidebar() {
   const sb = document.getElementById('sidebar');
   let html = `
-    <div class="sidebar-logo">${t('sidebarLogo')}</div>
+    <div class="sidebar-logo"><svg class="logo-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><linearGradient id="sG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F7D96E"/><stop offset="50%" stop-color="#D4A843"/><stop offset="100%" stop-color="#916E2B"/></linearGradient><radialGradient id="sI" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFF8E0"/><stop offset="20%" stop-color="#F7D96E"/><stop offset="55%" stop-color="#D4A843"/><stop offset="80%" stop-color="#7B4FBF"/><stop offset="100%" stop-color="#3A1F6E"/></radialGradient><radialGradient id="sP" cx="45%" cy="42%" r="55%"><stop offset="0%" stop-color="#1a1040"/><stop offset="100%" stop-color="#08071A"/></radialGradient></defs><path d="M55,250 Q155,115 250,95 Q345,115 445,250 Q345,385 250,405 Q155,385 55,250Z" stroke="url(#sG)" stroke-width="8" fill="rgba(212,168,67,0.03)"/><circle cx="250" cy="250" r="75" stroke="url(#sG)" stroke-width="6" fill="url(#sI)" opacity="0.3"/><circle cx="250" cy="250" r="32" fill="url(#sP)"/><path d="M250,225 L253,244 L270,250 L253,256 L250,275 L247,256 L230,250 L247,244Z" fill="url(#sG)" opacity="0.6"/><circle cx="238" cy="238" r="6" fill="white" opacity="0.4"/></svg> Astro Connect</div>
     <div class="sidebar-sub">${t('sidebarSub')}</div>
     <select class="lang-select" id="langSelect">
       ${LANGS.map(l => `<option value="${l.code}" ${l.code === currentLang ? 'selected' : ''}>${l.flag} ${l.name}</option>`).join('')}
@@ -3873,7 +3882,7 @@ function renderCTA() {
 function renderFooter() {
   const ft = document.getElementById('footer');
   ft.innerHTML = `
-    <div class="footer-logo">✦ Astro Connect</div>
+    <div class="footer-logo"><svg style="width:24px;height:24px;vertical-align:middle;margin-right:6px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><linearGradient id="fG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F7D96E"/><stop offset="50%" stop-color="#D4A843"/><stop offset="100%" stop-color="#916E2B"/></linearGradient><radialGradient id="fI" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFF8E0"/><stop offset="20%" stop-color="#F7D96E"/><stop offset="55%" stop-color="#D4A843"/><stop offset="80%" stop-color="#7B4FBF"/><stop offset="100%" stop-color="#3A1F6E"/></radialGradient><radialGradient id="fP" cx="45%" cy="42%" r="55%"><stop offset="0%" stop-color="#1a1040"/><stop offset="100%" stop-color="#08071A"/></radialGradient></defs><path d="M55,250 Q155,115 250,95 Q345,115 445,250 Q345,385 250,405 Q155,385 55,250Z" stroke="url(#fG)" stroke-width="8" fill="rgba(212,168,67,0.03)"/><circle cx="250" cy="250" r="75" stroke="url(#fG)" stroke-width="6" fill="url(#fI)" opacity="0.3"/><circle cx="250" cy="250" r="32" fill="url(#fP)"/><path d="M250,225 L253,244 L270,250 L253,256 L250,275 L247,256 L230,250 L247,244Z" fill="url(#fG)" opacity="0.6"/><circle cx="238" cy="238" r="6" fill="white" opacity="0.4"/></svg>Astro Connect</div>
     <div class="footer-disclaimer">${t('footerDisclaimer')}</div>
     <div class="footer-links">
       <a href="javascript:void(0)" onclick="openLegal('privacy')">${t('privacy')}</a>
