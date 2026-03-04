@@ -181,7 +181,7 @@
 
   <!-- Tagline -->
   <text x="830" y="390" text-anchor="middle" font-family="'Georgia','Times New Roman',serif"
-        font-size="18" letter-spacing="4" fill="#C9AAFF" opacity="0.7" filter="url(#subtleGlow)">ASTROLOGIA CON IA</text>
+        font-size="18" letter-spacing="4" fill="#C9AAFF" opacity="0.7" filter="url(#subtleGlow)">TU GUIA COSMICA</text>
 
   <!-- URL -->
   <text x="830" y="430" text-anchor="middle" font-family="'Georgia','Times New Roman',serif"

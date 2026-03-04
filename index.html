@@ -3837,6 +3837,7 @@ function openProductModal(id) {
   modal.innerHTML = html;
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+  attachEmailPrefill(modal);
 }
 
 function openPackModal(id) {
@@ -3877,6 +3878,7 @@ function openPackModal(id) {
   modal.innerHTML = html;
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+  attachEmailPrefill(modal);
 }
 
 function renderFormFields(formType) {
@@ -3988,6 +3990,34 @@ function closeModal() {
       panel.classList.add('open');
     }, 150);
   }
+}
+
+// Pre-fill form when returning customer enters their email
+function attachEmailPrefill(modal) {
+  const form = modal.querySelector('form');
+  if (!form) return;
+  const inputs = form.querySelectorAll('input, select, textarea');
+  // field_5 = email input
+  const emailInput = inputs[5];
+  if (!emailInput || emailInput.type !== 'email') return;
+
+  emailInput.addEventListener('blur', function() {
+    const email = emailInput.value.trim();
+    if (!email || !email.includes('@')) return;
+
+    fetch('https://my.astro-connect.app/api/customer/birth-data?email=' + encodeURIComponent(email))
+      .then(r => r.json())
+      .then(data => {
+        if (!data.found) return;
+        // field_0=Name, field_1=BirthDate, field_2=BirthTime, field_3=City, field_4=Country
+        if (data.fullName && !inputs[0].value) inputs[0].value = data.fullName;
+        if (data.birthDate && !inputs[1].value) inputs[1].value = data.birthDate;
+        if (data.birthTime && !inputs[2].value) inputs[2].value = data.birthTime;
+        if (data.birthCity && !inputs[3].value) inputs[3].value = data.birthCity;
+        if (data.birthCountry && !inputs[4].value) inputs[4].value = data.birthCountry;
+      })
+      .catch(() => {}); // Silent fail - pre-fill is optional
+  });
 }
 
 function submitForm(e, productId) {
