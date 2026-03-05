@@ -879,6 +879,17 @@ body {
   transition: all 0.3s;
 }
 .modal-submit:hover { transform: scale(1.02); box-shadow: 0 8px 24px rgba(212,168,67,0.3); }
+
+/* Service Tier Selector */
+.tier-selector { display:flex; gap:12px; margin-bottom:20px; }
+.tier-option { flex:1; border:1px solid rgba(212,168,67,0.15); border-radius:12px; padding:16px; cursor:pointer; text-align:center; transition:all 0.3s; }
+.tier-option.active { border-color:var(--gold); background:rgba(212,168,67,0.08); }
+.tier-option:hover { border-color:rgba(212,168,67,0.4); }
+.tier-badge { font-size:0.8rem; font-weight:bold; color:#9B8EC4; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; }
+.tier-badge.gold { color:var(--gold); }
+.tier-price { font-size:1.3rem; font-weight:bold; color:var(--gold); margin-bottom:4px; }
+.tier-desc { font-size:0.7rem; color:#6B5B8D; line-height:1.4; }
+
 .medical-disclaimer { border: 1px solid rgba(212,168,67,0.25); background: rgba(232,67,147,0.05); padding: 12px; border-radius: 10px; font-size: 0.7rem; color: #9E95B0; margin-top: 12px; line-height: 1.5; }
 .business-disclaimer { border: 1px solid rgba(0,206,201,0.25); background: rgba(0,206,201,0.05); padding: 12px; border-radius: 10px; font-size: 0.7rem; color: #9E95B0; margin-top: 12px; line-height: 1.5; }
 .modal-includes { list-style: none; padding: 0; margin-bottom: 16px; }
@@ -1163,6 +1174,8 @@ es: {
   fIchingQPh: 'Formula una pregunta clara y específica',
   fHdTimePh: 'OBLIGATORIA para Human Design', fHdWarn: '⚠ La hora exacta es esencial para Human Design',
   fSubmit: '✦ Solicitar Lectura',
+  tierBasic: 'Basico', tierPremium: 'Premium',
+  tierBasicDesc: 'Reporte PDF automatizado', tierPremiumDesc: 'Reporte extendido + Sesion 15min',
   checkoutTitle: 'Confirmar Pedido', checkoutNote: 'Lectura personalizada entregada por email en 24h',
   checkoutEmail: 'Enviaremos tu lectura a:', payCard: 'Pagar con Tarjeta', payPaypal: 'Pagar con PayPal', payOr: 'o',
   checkoutSecure: 'Pago 100% seguro · Datos encriptados SSL',
@@ -1242,6 +1255,8 @@ en: {
   fIchingQPh: 'Formulate a clear and specific question',
   fHdTimePh: 'REQUIRED for Human Design', fHdWarn: '⚠ Exact time is essential for Human Design',
   fSubmit: '✦ Request Reading',
+  tierBasic: 'Basic', tierPremium: 'Premium',
+  tierBasicDesc: 'Automated PDF report', tierPremiumDesc: 'Extended report + 15min session',
   checkoutTitle: 'Confirm Order', checkoutNote: 'Personalized reading delivered by email within 24h',
   checkoutEmail: 'We will send your reading to:', payCard: 'Pay with Card', payPaypal: 'Pay with PayPal', payOr: 'or',
   checkoutSecure: '100% secure payment · SSL encrypted',
@@ -1321,6 +1336,8 @@ bg: {
   fIchingQPh: 'Формулирай ясен и конкретен въпрос',
   fHdTimePh: 'ЗАДЪЛЖИТЕЛЕН за Human Design', fHdWarn: '⚠ Точният час е от съществено значение за Human Design',
   fSubmit: '✦ Заяви Четене',
+  tierBasic: 'Базов', tierPremium: 'Премиум',
+  tierBasicDesc: 'Автоматизиран PDF доклад', tierPremiumDesc: 'Разширен доклад + 15мин сесия',
   privacy: 'Поверителност', terms: 'Условия', contact: 'Контакт',
   copyright: '© 2026 Astro Connect. Всички права запазени.',
   footerDisclaimer: 'Астрологичните четения са ориентировъчни и не заместват професионалния медицински, юридически или финансов съвет.',
@@ -2837,6 +2854,60 @@ function packPrice(pack) { return fmtPrice(calcLocalPrice(pack.price)); }
 function packOrig(pack) { return fmtPrice(calcLocalPrice(pack.origPrice)); }
 function packSavings(pack) { return fmtPrice(calcLocalPrice(pack.origPrice) - calcLocalPrice(pack.price)); }
 
+// ─── Service Tier (Basic vs Premium) ───
+var SERVICE_TIER_MULT = { basic: 1, premium: 5 };
+var currentServiceTier = 'basic';
+
+function tierPrice(baseEurPrice) {
+  return calcLocalPrice(baseEurPrice) * SERVICE_TIER_MULT[currentServiceTier];
+}
+function fmtTierPrice(prod) { return fmtPrice(tierPrice(prod.price)); }
+function fmtTierPackPrice(pack) { return fmtPrice(tierPrice(pack.price)); }
+
+function tierSelectorHtml(basePrice, isPack) {
+  var basicAmt = fmtPrice(calcLocalPrice(basePrice));
+  var premiumAmt = fmtPrice(calcLocalPrice(basePrice) * SERVICE_TIER_MULT.premium);
+  var tBasic = t('tierBasic') || 'Basico';
+  var tPremium = t('tierPremium') || 'Premium';
+  var tBasicDesc = t('tierBasicDesc') || 'Reporte PDF automatizado';
+  var tPremiumDesc = t('tierPremiumDesc') || 'Reporte extendido + Sesion 15min';
+  return '<div class="tier-selector">' +
+    '<div class="tier-option active" data-tier="basic" onclick="selectTier(this,\'basic\')">' +
+      '<div class="tier-badge">' + tBasic + '</div>' +
+      '<div class="tier-price">' + basicAmt + '</div>' +
+      '<div class="tier-desc">' + tBasicDesc + '</div>' +
+    '</div>' +
+    '<div class="tier-option" data-tier="premium" onclick="selectTier(this,\'premium\')">' +
+      '<div class="tier-badge gold">' + tPremium + '</div>' +
+      '<div class="tier-price">' + premiumAmt + '</div>' +
+      '<div class="tier-desc">' + tPremiumDesc + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function selectTier(el, tier) {
+  currentServiceTier = tier;
+  var selector = el.closest('.tier-selector');
+  selector.querySelectorAll('.tier-option').forEach(function(opt) { opt.classList.remove('active'); });
+  el.classList.add('active');
+  // Update prices in the modal
+  var modal = document.getElementById('modal');
+  var submitBtn = modal.querySelector('.modal-submit');
+  var h2 = modal.querySelector('h2');
+  var prodId = modal.querySelector('form').getAttribute('onsubmit').match(/'([^']+)'/)[1];
+  var prod = findProduct(prodId);
+  var pack = findPack(prodId);
+  if (pack) {
+    var price = fmtTierPackPrice(pack);
+    if (h2) h2.innerHTML = '✦ ' + ct(pack.name) + ' — ' + price;
+    if (submitBtn) submitBtn.textContent = (t('fSubmit') || 'Pedir lectura') + ' — ' + price;
+  } else if (prod) {
+    var price2 = fmtTierPrice(prod);
+    if (h2) h2.innerHTML = '✦ ' + ct(prod.name) + ' — ' + price2;
+    if (submitBtn) submitBtn.textContent = (t('fSubmit') || 'Pedir lectura') + ' — ' + price2;
+  }
+}
+
 function fetchServerPricing() {
   fetch('https://my.astro-connect.app/api/pricing?lang=' + currentLocale)
     .then(function(res) { return res.json(); })
@@ -3918,12 +3989,14 @@ function openProductModal(id) {
   const prod = findProduct(id);
   if (!prod) return;
 
+  currentServiceTier = 'basic';
   const modal = document.getElementById('modal');
   const overlay = document.getElementById('modal-overlay');
 
   let html = `
     <button class="modal-close" onclick="closeModal()">✕</button>
     <h2>✦ ${ct(prod.name)} — ${localPrice(prod)}</h2>
+    ${tierSelectorHtml(prod.price, false)}
     <form onsubmit="submitForm(event, '${prod.id}')">
   `;
 
@@ -3950,6 +4023,7 @@ function openPackModal(id) {
   const pack = findPack(id);
   if (!pack) return;
 
+  currentServiceTier = 'basic';
   const modal = document.getElementById('modal');
   const overlay = document.getElementById('modal-overlay');
 
@@ -3965,6 +4039,7 @@ function openPackModal(id) {
     <h2>✦ ${ct(pack.name)} — ${packPrice(pack)}</h2>
     ${includesHtml}
     <span class="modal-save-badge">${t('save')} ${packSavings(pack)}</span>
+    ${tierSelectorHtml(pack.price, true)}
     <form onsubmit="submitForm(event, '${pack.id}')">
   `;
 
@@ -4148,6 +4223,7 @@ function submitForm(e, productId) {
     languageInstruction,
     productInstruction,
     formData,
+    serviceTier: currentServiceTier,
     timestamp: new Date().toISOString()
   };
 
@@ -4231,7 +4307,9 @@ function openCheckout(readingRequest, product) {
   if (!overlay) { console.error('checkout-overlay not found'); return; }
 
   const productName = product ? ct(product.name) : readingRequest.productId;
-  const price = product ? (findPack(readingRequest.productId) ? packPrice(product) : localPrice(product)) : '';
+  const sTier = readingRequest.serviceTier || 'basic';
+  const tierMult = SERVICE_TIER_MULT[sTier];
+  const price = product ? fmtPrice((findPack(readingRequest.productId) ? calcLocalPrice(product.price) : calcLocalPrice(product.price)) * tierMult) : '';
   const email = readingRequest.formData.field_5 || '';
   const isPack = !!findPack(readingRequest.productId);
 
@@ -4243,14 +4321,18 @@ function openCheckout(readingRequest, product) {
 
   // Order summary
   let summaryHtml = '';
+  if (sTier === 'premium') {
+    summaryHtml += `<div class="checkout-summary-row" style="color:#F7D96E"><span>⭐ ${t('tierPremium') || 'Premium'}</span><span></span></div>`;
+    summaryHtml += `<div class="checkout-summary-row" style="font-size:0.8rem;color:#9B8EC4"><span>${t('tierPremiumDesc') || 'Reporte extendido + Sesion 15min'}</span><span></span></div>`;
+  }
   if (isPack) {
     const pack = findPack(readingRequest.productId);
     pack.includes.forEach(refId => {
       const ref = findProduct(refId);
-      if (ref) summaryHtml += `<div class="checkout-summary-row"><span>${ct(ref.name)}</span><span>${localPrice(ref)}</span></div>`;
+      if (ref) summaryHtml += `<div class="checkout-summary-row"><span>${ct(ref.name)}</span><span>${fmtPrice(calcLocalPrice(ref.price) * tierMult)}</span></div>`;
     });
-    summaryHtml += `<div class="checkout-summary-row" style="color:#55efc4"><span>${t('save') || 'Ahorro'}</span><span>-${packSavings(pack)}</span></div>`;
-    summaryHtml += `<div class="checkout-summary-row total"><span>Total</span><span>${packPrice(pack)}</span></div>`;
+    summaryHtml += `<div class="checkout-summary-row" style="color:#55efc4"><span>${t('save') || 'Ahorro'}</span><span>-${fmtPrice((calcLocalPrice(pack.origPrice) - calcLocalPrice(pack.price)) * tierMult)}</span></div>`;
+    summaryHtml += `<div class="checkout-summary-row total"><span>Total</span><span>${price}</span></div>`;
   } else {
     summaryHtml += `<div class="checkout-summary-row"><span>${productName}</span><span>${price}</span></div>`;
     summaryHtml += `<div class="checkout-summary-row total"><span>Total</span><span>${price}</span></div>`;
@@ -4311,6 +4393,7 @@ function payWithStripe() {
     birthCity: fd.field_3 || '',
     birthCountry: fd.field_4 || '',
     language: data.language || currentLang || 'es',
+    serviceTier: data.serviceTier || 'basic',
   };
 
   // Partner data for compatibility products
@@ -4358,7 +4441,8 @@ function payWithPayPal() {
   if (!currentCheckoutData) return;
   const data = currentCheckoutData;
   const product = findProduct(data.productId) || findPack(data.productId);
-  const localAmt = product ? calcLocalPrice(product.price) : 0;
+  const sTierMult = SERVICE_TIER_MULT[data.serviceTier || 'basic'];
+  const localAmt = product ? calcLocalPrice(product.price) * sTierMult : 0;
   const productName = product ? (product.name || data.productId) : data.productId;
   const email = PAYMENT_CONFIG.paypalEmail;
 
