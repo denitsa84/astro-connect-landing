@@ -164,6 +164,9 @@ body {
   color: var(--text-muted);
   border-radius: 6px;
   transition: all 0.2s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .sidebar-item:hover { background: rgba(212,168,67,0.06); color: var(--text); }
 .sidebar-item.active { background: rgba(212,168,67,0.1); color: var(--gold); }
@@ -435,6 +438,11 @@ body {
   font-size: 1.1rem;
   color: var(--gold);
   margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .trad-subtitle { font-size: 0.7rem; color: var(--text-dim); margin-bottom: 8px; }
 .trad-card p { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4; }
@@ -507,8 +515,8 @@ body {
   margin-bottom: 12px;
 }
 .prod-icon-wrap svg { width: 28px; height: 28px; }
-.prod-card h3 { font-size: 0.95rem; color: var(--text); margin-bottom: 6px; }
-.prod-card p { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 12px; line-height: 1.4; }
+.prod-card h3 { font-size: 0.95rem; color: var(--text); margin-bottom: 6px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.prod-card p { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 12px; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
 .prod-price { font-weight: 700; color: var(--gold); font-size: 0.9rem; }
 
 /* === PACK CARDS === */
@@ -550,8 +558,8 @@ body {
 .tag-espiritual { background: rgba(155,111,223,0.2); color: var(--purple-light); }
 .tag-oriental { background: rgba(250,180,0,0.15); color: #fdcb6e; }
 
-.pack-card h3 { font-size: 1.05rem; color: var(--text); }
-.pack-card p { font-size: 0.78rem; color: var(--text-dim); line-height: 1.4; margin-bottom: 12px; }
+.pack-card h3 { font-size: 1.05rem; color: var(--text); overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.pack-card p { font-size: 0.78rem; color: var(--text-dim); line-height: 1.4; margin-bottom: 12px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
 .pack-includes { list-style: none; padding: 0; margin-bottom: 16px; }
 .pack-includes li { padding: 4px 0; font-size: 0.72rem; color: var(--text-dim); }
 .pack-includes li::before { content: "✦ "; color: var(--gold); }
@@ -2748,6 +2756,104 @@ const PACKS = [
 ];
 
 // ═══════════════════════════════════════════════════
+// GEO PRICING — Client-side estimated pricing
+// ═══════════════════════════════════════════════════
+var currentLocale = 'es-ES';
+var PRICING_TIERS = { premium: 1.0, standard: 0.75, economy: 0.55 };
+var CURRENCIES = {
+  EUR:{code:'EUR',sym:'€',pos:'before',zd:false},USD:{code:'USD',sym:'$',pos:'before',zd:false},
+  GBP:{code:'GBP',sym:'£',pos:'before',zd:false},JPY:{code:'JPY',sym:'¥',pos:'before',zd:true},
+  KRW:{code:'KRW',sym:'₩',pos:'before',zd:true},BRL:{code:'BRL',sym:'R$',pos:'before',zd:false},
+  INR:{code:'INR',sym:'₹',pos:'before',zd:false},TRY:{code:'TRY',sym:'₺',pos:'after',zd:false},
+  PLN:{code:'PLN',sym:'zł',pos:'after',zd:false},CZK:{code:'CZK',sym:'Kč',pos:'after',zd:false},
+  RON:{code:'RON',sym:'lei',pos:'after',zd:false},SEK:{code:'SEK',sym:'kr',pos:'after',zd:false},
+  ILS:{code:'ILS',sym:'₪',pos:'before',zd:false},AED:{code:'AED',sym:'AED',pos:'before',zd:false},
+  THB:{code:'THB',sym:'฿',pos:'before',zd:false},VND:{code:'VND',sym:'₫',pos:'after',zd:true},
+  IDR:{code:'IDR',sym:'Rp',pos:'before',zd:false},UAH:{code:'UAH',sym:'₴',pos:'after',zd:false},
+  MXN:{code:'MXN',sym:'MX$',pos:'before',zd:false}
+};
+var FX_RATES = {EUR:1,USD:1.08,GBP:0.86,JPY:163,KRW:1450,BRL:5.40,INR:92,TRY:34,PLN:4.30,CZK:25.3,RON:4.97,SEK:11.3,ILS:3.95,AED:3.97,THB:38,VND:26800,IDR:17000,UAH:43,MXN:18.5};
+var LOCALE_PRICING = {
+  'es-ES':{t:'premium',c:'EUR'},'es-MX':{t:'economy',c:'MXN'},'es-AR':{t:'economy',c:'USD'},
+  'es-CO':{t:'economy',c:'USD'},'es-CL':{t:'economy',c:'USD'},'es-PE':{t:'economy',c:'USD'},
+  'es-VE':{t:'economy',c:'USD'},'es-EC':{t:'economy',c:'USD'},'es-UY':{t:'economy',c:'USD'},
+  'es-BO':{t:'economy',c:'USD'},'es-PY':{t:'economy',c:'USD'},'es-CR':{t:'economy',c:'USD'},
+  'es-DO':{t:'economy',c:'USD'},'es-GT':{t:'economy',c:'USD'},'es-HN':{t:'economy',c:'USD'},
+  'es-SV':{t:'economy',c:'USD'},'es-PA':{t:'economy',c:'USD'},'es-NI':{t:'economy',c:'USD'},
+  'es-CU':{t:'economy',c:'USD'},'es-PR':{t:'economy',c:'USD'},
+  'pt-PT':{t:'premium',c:'EUR'},'pt-BR':{t:'economy',c:'BRL'},
+  'en-US':{t:'premium',c:'USD'},'en-GB':{t:'premium',c:'GBP'},'en-IN':{t:'economy',c:'INR'}
+};
+var LANG_PRICING = {
+  es:{t:'premium',c:'EUR'},en:{t:'premium',c:'EUR'},fr:{t:'premium',c:'EUR'},
+  de:{t:'premium',c:'EUR'},it:{t:'premium',c:'EUR'},nl:{t:'premium',c:'EUR'},
+  el:{t:'premium',c:'EUR'},sv:{t:'premium',c:'SEK'},ja:{t:'premium',c:'JPY'},
+  bg:{t:'standard',c:'EUR'},cs:{t:'standard',c:'CZK'},pl:{t:'standard',c:'PLN'},
+  ro:{t:'standard',c:'RON'},ko:{t:'standard',c:'KRW'},he:{t:'standard',c:'ILS'},
+  ar:{t:'standard',c:'AED'},zh:{t:'standard',c:'USD'},pt:{t:'standard',c:'EUR'},
+  ru:{t:'economy',c:'EUR'},uk:{t:'economy',c:'UAH'},hi:{t:'economy',c:'INR'},
+  tr:{t:'economy',c:'TRY'},th:{t:'economy',c:'THB'},vi:{t:'economy',c:'VND'},
+  id:{t:'economy',c:'IDR'}
+};
+var currentPricing = { tier: 'premium', currencyCode: 'EUR' };
+
+function detectPricing() {
+  var lp = LOCALE_PRICING[currentLocale];
+  if (lp) { currentPricing = { tier: lp.t, currencyCode: lp.c }; return; }
+  var langP = LANG_PRICING[currentLang];
+  if (langP) { currentPricing = { tier: langP.t, currencyCode: langP.c }; return; }
+  currentPricing = { tier: 'premium', currencyCode: 'EUR' };
+}
+
+function psychoRound(amount, code) {
+  if (code === 'VND') return Math.round(amount / 10000) * 10000;
+  if (code === 'IDR') return Math.round(amount / 5000) * 5000;
+  if (code === 'KRW') return Math.round(amount / 1000) * 1000;
+  if (code === 'JPY') return Math.round(amount / 100) * 100;
+  if (amount > 50) { var f = Math.floor(amount); return f - (f % 10) + 9; }
+  if (amount > 10) { var f2 = Math.floor(amount); return f2 - (f2 % 5) + 4.90; }
+  return Math.round(amount * 10) / 10;
+}
+
+function calcLocalPrice(eurWholeUnits) {
+  var mult = PRICING_TIERS[currentPricing.tier];
+  var rate = FX_RATES[currentPricing.currencyCode] || 1;
+  return psychoRound(eurWholeUnits * mult * rate, currentPricing.currencyCode);
+}
+
+function fmtPrice(amount) {
+  var cur = CURRENCIES[currentPricing.currencyCode] || CURRENCIES.EUR;
+  var s;
+  if (cur.zd || amount === Math.floor(amount)) {
+    s = Math.round(amount).toLocaleString('en-US');
+  } else {
+    s = amount.toFixed(2);
+  }
+  return cur.pos === 'before' ? cur.sym + s : s + ' ' + cur.sym;
+}
+
+function localPrice(prod) { return fmtPrice(calcLocalPrice(prod.price)); }
+function packPrice(pack) { return fmtPrice(calcLocalPrice(pack.price)); }
+function packOrig(pack) { return fmtPrice(calcLocalPrice(pack.origPrice)); }
+function packSavings(pack) { return fmtPrice(calcLocalPrice(pack.origPrice) - calcLocalPrice(pack.price)); }
+
+function fetchServerPricing() {
+  fetch('https://my.astro-connect.app/api/pricing?lang=' + currentLocale)
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data.tier && data.currency) {
+        var changed = data.tier !== currentPricing.tier || data.currency !== currentPricing.currencyCode;
+        if (changed) {
+          currentPricing.tier = data.tier;
+          currentPricing.currencyCode = data.currency;
+          renderAll();
+        }
+      }
+    })
+    .catch(function() { /* use client-side estimates */ });
+}
+
+// ═══════════════════════════════════════════════════
 // I18N DATA — Merge translations into TRADITIONS/PRODUCTS/PACKS
 // ═══════════════════════════════════════════════════
 (function mergeI18n(){
@@ -3289,7 +3395,7 @@ function renderSidebar() {
       PACKS.forEach(p => {
         html += `<div class="sidebar-item" data-pack="${p.id}" onclick="openPackModal('${p.id}')">
           <span>${ct(p.name)}</span>
-          <span style="color:#D4A843">€${p.price}</span>
+          <span style="color:#D4A843">${packPrice(p)}</span>
         </div>`;
       });
       html += `</div></div>`;
@@ -3305,7 +3411,7 @@ function renderSidebar() {
         if (prod) {
           html += `<div class="sidebar-item" data-prod="${pid}" onclick="openProductModal('${pid}')">
             <span>${prod.sidebarSymbol} ${ct(prod.name)}</span>
-            <span style="color:#D4A843">${prod.priceLabel}</span>
+            <span style="color:#D4A843">${localPrice(prod)}</span>
           </div>`;
         }
       });
@@ -3459,9 +3565,9 @@ function renderTraditions() {
         <div class="trad-subtitle">${ct(tr.sub)}</div>
         <p>${ct(tr.desc)}</p>
         <div class="trad-tags">${ct(tr.tags)}</div>
-        <div class="trad-meta">${tr.services} ${t('services')} — ${t('from')} €${tr.minPrice}</div>
+        <div class="trad-meta">${tr.services} ${t('services')} — ${t('from')} ${fmtPrice(calcLocalPrice(tr.minPrice))}</div>
         <div class="trad-prod-list">
-          ${tradProds.map(p => `<a href="javascript:void(0)" class="trad-prod-btn" onclick="event.stopPropagation();openProductModal('${p.id}')">${p.sidebarSymbol} ${ct(p.name)}<span style="color:var(--gold);margin-left:auto">${p.priceLabel}</span></a>`).join('')}
+          ${tradProds.map(p => `<a href="javascript:void(0)" class="trad-prod-btn" onclick="event.stopPropagation();openProductModal('${p.id}')">${p.sidebarSymbol} ${ct(p.name)}<span style="color:var(--gold);margin-left:auto">${localPrice(p)}</span></a>`).join('')}
         </div>
       </div>
     `;
@@ -3515,7 +3621,7 @@ function renderProducts() {
           </div>
           <h3>${ct(p.name)}</h3>
           <p>${ct(p.desc)}</p>
-          <span class="prod-price">${p.priceLabel}</span>
+          <span class="prod-price">${localPrice(p)}</span>
         </div>`;
     });
 
@@ -3553,7 +3659,7 @@ function renderPacks() {
     pack.includes.forEach(refId => {
       const refProd = findProduct(refId);
       if (refProd) {
-        includesHtml += `<li>${ct(refProd.name)} <span class="inc-price">(€${refProd.price})</span></li>`;
+        includesHtml += `<li>${ct(refProd.name)} <span class="inc-price">(${localPrice(refProd)})</span></li>`;
       }
     });
     includesHtml += '</ul>';
@@ -3571,11 +3677,11 @@ function renderPacks() {
         <p>${ct(pack.desc)}</p>
         ${includesHtml}
         <div class="pack-pricing">
-          <span class="pack-orig">€${pack.origPrice}</span>
-          <span class="pack-price">€${pack.price}</span>
-          <span class="pack-save">${t('save')} €${pack.savings}</span>
+          <span class="pack-orig">${packOrig(pack)}</span>
+          <span class="pack-price">${packPrice(pack)}</span>
+          <span class="pack-save">${t('save')} ${packSavings(pack)}</span>
         </div>
-        <button class="pack-btn">✦ ${ct(pack.name)} — €${pack.price}</button>
+        <button class="pack-btn">✦ ${ct(pack.name)} — ${packPrice(pack)}</button>
       </div>`;
   });
 
@@ -3817,7 +3923,7 @@ function openProductModal(id) {
 
   let html = `
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <h2>✦ ${ct(prod.name)} — ${prod.priceLabel}</h2>
+    <h2>✦ ${ct(prod.name)} — ${localPrice(prod)}</h2>
     <form onsubmit="submitForm(event, '${prod.id}')">
   `;
 
@@ -3831,7 +3937,7 @@ function openProductModal(id) {
   }
 
   html += `
-      <button type="submit" class="modal-submit">${t('fSubmit')} — ${prod.priceLabel}</button>
+      <button type="submit" class="modal-submit">${t('fSubmit')} — ${localPrice(prod)}</button>
     </form>`;
 
   modal.innerHTML = html;
@@ -3850,15 +3956,15 @@ function openPackModal(id) {
   let includesHtml = '<ul class="modal-includes">';
   pack.includes.forEach(refId => {
     const refProd = findProduct(refId);
-    if (refProd) includesHtml += `<li>${ct(refProd.name)} (€${refProd.price})</li>`;
+    if (refProd) includesHtml += `<li>${ct(refProd.name)} (${localPrice(refProd)})</li>`;
   });
   includesHtml += '</ul>';
 
   let html = `
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <h2>✦ ${ct(pack.name)} — €${pack.price}</h2>
+    <h2>✦ ${ct(pack.name)} — ${packPrice(pack)}</h2>
     ${includesHtml}
-    <span class="modal-save-badge">${t('save')} €${pack.savings}</span>
+    <span class="modal-save-badge">${t('save')} ${packSavings(pack)}</span>
     <form onsubmit="submitForm(event, '${pack.id}')">
   `;
 
@@ -3872,7 +3978,7 @@ function openPackModal(id) {
   }
 
   html += `
-      <button type="submit" class="modal-submit">${t('fSubmit')} — €${pack.price}</button>
+      <button type="submit" class="modal-submit">${t('fSubmit')} — ${packPrice(pack)}</button>
     </form>`;
 
   modal.innerHTML = html;
@@ -4092,7 +4198,7 @@ function submitForm(e, productId) {
 
 📦 Product ID: ${productId}
 📖 Product: ${productName}
-💰 Price: ${prod ? prod.priceLabel : (findPack(productId) ? '€'+findPack(productId).price : 'N/A')}
+💰 Price: ${prod ? localPrice(prod) : (findPack(productId) ? packPrice(findPack(productId)) : 'N/A')}
 🌐 Language: ${readingRequest.languageName} (${readingRequest.language})
 📅 Timestamp: ${readingRequest.timestamp}
 
@@ -4125,7 +4231,7 @@ function openCheckout(readingRequest, product) {
   if (!overlay) { console.error('checkout-overlay not found'); return; }
 
   const productName = product ? ct(product.name) : readingRequest.productId;
-  const price = product ? (product.priceLabel || '€' + product.price) : '';
+  const price = product ? (findPack(readingRequest.productId) ? packPrice(product) : localPrice(product)) : '';
   const email = readingRequest.formData.field_5 || '';
   const isPack = !!findPack(readingRequest.productId);
 
@@ -4141,10 +4247,10 @@ function openCheckout(readingRequest, product) {
     const pack = findPack(readingRequest.productId);
     pack.includes.forEach(refId => {
       const ref = findProduct(refId);
-      if (ref) summaryHtml += `<div class="checkout-summary-row"><span>${ct(ref.name)}</span><span>€${ref.price}</span></div>`;
+      if (ref) summaryHtml += `<div class="checkout-summary-row"><span>${ct(ref.name)}</span><span>${localPrice(ref)}</span></div>`;
     });
-    summaryHtml += `<div class="checkout-summary-row" style="color:#55efc4"><span>${t('save') || 'Ahorro'}</span><span>-€${pack.savings}</span></div>`;
-    summaryHtml += `<div class="checkout-summary-row total"><span>Total</span><span>€${pack.price}</span></div>`;
+    summaryHtml += `<div class="checkout-summary-row" style="color:#55efc4"><span>${t('save') || 'Ahorro'}</span><span>-${packSavings(pack)}</span></div>`;
+    summaryHtml += `<div class="checkout-summary-row total"><span>Total</span><span>${packPrice(pack)}</span></div>`;
   } else {
     summaryHtml += `<div class="checkout-summary-row"><span>${productName}</span><span>${price}</span></div>`;
     summaryHtml += `<div class="checkout-summary-row total"><span>Total</span><span>${price}</span></div>`;
@@ -4252,19 +4358,29 @@ function payWithPayPal() {
   if (!currentCheckoutData) return;
   const data = currentCheckoutData;
   const product = findProduct(data.productId) || findPack(data.productId);
-  const price = product ? product.price : 0;
+  const localAmt = product ? calcLocalPrice(product.price) : 0;
   const productName = product ? (product.name || data.productId) : data.productId;
   const email = PAYMENT_CONFIG.paypalEmail;
 
-  console.log('🅿️ PayPal Payment:', { product: data.productId, price, email });
+  // PayPal supported currencies (fall back to USD for unsupported)
+  var ppSupported = ['EUR','USD','GBP','JPY','CAD','AUD','BRL','MXN','PLN','CZK','SEK','ILS','THB','INR','TRY'];
+  var ppCurrency = ppSupported.indexOf(currentPricing.currencyCode) !== -1 ? currentPricing.currencyCode : 'USD';
+  var ppAmount = ppCurrency === currentPricing.currencyCode ? localAmt : calcLocalPrice(product ? product.price : 0);
+  // If falling back to USD, recalculate
+  if (ppCurrency !== currentPricing.currencyCode && product) {
+    var usdRate = FX_RATES.USD || 1.08;
+    var mult = PRICING_TIERS[currentPricing.tier];
+    ppAmount = psychoRound(product.price * mult * usdRate, 'USD');
+  }
+
+  console.log('🅿️ PayPal Payment:', { product: data.productId, amount: ppAmount, currency: ppCurrency });
 
   if (email) {
-    // Redirect to PayPal checkout with email
     var paypalUrl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_xclick' +
       '&business=' + encodeURIComponent(email) +
       '&item_name=' + encodeURIComponent(productName + ' - Astro Connect') +
-      '&amount=' + price +
-      '&currency_code=EUR' +
+      '&amount=' + ppAmount.toFixed(2) +
+      '&currency_code=' + ppCurrency +
       '&no_shipping=1' +
       '&return=' + encodeURIComponent('https://astro-connect.app') +
       '&cancel_return=' + encodeURIComponent('https://astro-connect.app/#catalog');
@@ -4347,14 +4463,18 @@ function initScrollSpy() {
 // === LANGUAGE SWITCH ===
 function setLanguage(code) {
   currentLang = code;
+  currentLocale = code;
   const lang = LANGS.find(l => l.code === code);
   document.documentElement.lang = code;
   document.documentElement.dir = lang ? lang.dir : 'ltr';
+  detectPricing();
   renderAll();
 }
 
 function detectLanguage() {
-  const navLang = navigator.language?.slice(0, 2) || 'es';
+  var fullLocale = navigator.language || 'es-ES';
+  currentLocale = fullLocale;
+  var navLang = fullLocale.slice(0, 2);
   const supported = LANGS.find(l => l.code === navLang);
   if (supported) currentLang = navLang;
 }
@@ -4445,7 +4565,7 @@ function initTestMode() {
       html += `<div class="test-card" onclick="testOpen('product','${p.id}')">
         <div class="tc-icon">${p.sidebarSymbol || '✦'}</div>
         <div class="tc-info"><div class="tc-name">${ct(p.name)} ${hasInstr}</div><div class="tc-id">${p.id} · ${p.formType}</div></div>
-        <div class="tc-price">${p.priceLabel}</div>
+        <div class="tc-price">${localPrice(p)}</div>
       </div>`;
     });
     html += `</div></div>`;
@@ -4457,8 +4577,8 @@ function initTestMode() {
     html += `<div class="test-card" onclick="testOpen('pack','${p.id}')">
       <div class="tc-icon">📦</div>
       <div class="tc-info"><div class="tc-name">${ct(p.name)}</div><div class="tc-id">${p.id} · ${p.formType} · ${p.includes.length} items</div></div>
-      <div class="tc-price">€${p.price}</div>
-      <div class="tc-form">-€${p.savings}</div>
+      <div class="tc-price">${packPrice(p)}</div>
+      <div class="tc-form">-${packSavings(p)}</div>
     </div>`;
   });
   html += `</div></div>`;
@@ -4480,6 +4600,7 @@ function initTestMode() {
 // === INIT ===
 function init() {
   detectLanguage();
+  detectPricing();
   initStars();
   initParticles();
   renderAll();
@@ -4488,6 +4609,7 @@ function init() {
   initModalClickOutside();
   initCardClicks();
   initTestMode();
+  fetchServerPricing();
 }
 
 document.addEventListener('DOMContentLoaded', init);
