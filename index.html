@@ -3808,7 +3808,7 @@ function renderHero() {
     </div>
     <div class="hero-btns">
       <button class="btn-gold" onclick="openProductModal('mega-carta')">${t('heroBtn1')}</button>
-      <button class="btn-lead" onclick="openLeadMagnetModal()">${currentPricing.tier === 'premium' ? (t('heroLeadPremium') || '✦ Auditoria Astral GRATIS') : (t('heroLeadEconomy') || '✦ Tu Suerte Semanal GRATIS')}</button>
+      <button class="btn-lead" onclick="openLeadMagnetModal(null,'suerte-semanal')">${t('heroLeadEconomy') || '✦ Tu Suerte Semanal GRATIS'}</button>
       <button class="btn-ghost" onclick="scrollTo('#tradiciones')">${t('heroBtn2')}</button>
     </div>
     <div class="hero-stats">
@@ -5032,15 +5032,15 @@ function heroRevealDestiny() {
     setTimeout(function() { dateInput.style.boxShadow = ''; }, 1500);
     return;
   }
-  openLeadMagnetModal(birthDate);
+  openLeadMagnetModal(birthDate, 'auditoria-astral');
 }
 
 // === LEAD MAGNET ===
-function openLeadMagnetModal(preBirthDate) {
-  var isPremium = currentPricing.tier === 'premium';
-  var leadType = isPremium ? 'auditoria-astral' : 'suerte-semanal';
-  var titleKey = isPremium ? 'leadTitlePremium' : 'leadTitleEconomy';
-  var modalTitle = t(titleKey) || (isPremium ? 'Auditoria de Inversion Astral' : 'Tu Suerte Semanal');
+function openLeadMagnetModal(preBirthDate, forceType) {
+  var leadType = forceType || 'suerte-semanal';
+  var modalTitle = leadType === 'auditoria-astral'
+    ? (t('leadTitlePremium') || 'Auditoria de Inversion Astral')
+    : (t('leadTitleEconomy') || 'Tu Suerte Semanal');
 
   var overlay = document.getElementById('lead-modal-overlay');
   if (!overlay) {
