@@ -2971,19 +2971,27 @@ var CURRENCIES = {
   MXN:{code:'MXN',sym:'MX$',pos:'before',zd:false},
   BGN:{code:'BGN',sym:'лв',pos:'after',zd:false},NOK:{code:'NOK',sym:'kr',pos:'after',zd:false},
   CHF:{code:'CHF',sym:'CHF',pos:'before',zd:false},HUF:{code:'HUF',sym:'Ft',pos:'after',zd:false},
-  DKK:{code:'DKK',sym:'kr',pos:'after',zd:false}
+  DKK:{code:'DKK',sym:'kr',pos:'after',zd:false},
+  RUB:{code:'RUB',sym:'₽',pos:'after',zd:false}
 };
 var FX_RATES = {EUR:1,USD:1.08,GBP:0.86,JPY:163,KRW:1450,BRL:5.40,INR:92,TRY:34,PLN:4.30,CZK:25.3,RON:4.97,SEK:11.3,ILS:3.95,AED:3.97,THB:38,VND:26800,IDR:17000,UAH:43,RUB:99,MXN:18.5,BGN:1.96,NOK:11.5,CHF:0.94,HUF:395,DKK:7.46};
 var LOCALE_PRICING = {
+  // Spanish locales
   'es-ES':{t:'premium',c:'EUR'},'es-MX':{t:'economy',c:'MXN'},'es-AR':{t:'economy',c:'USD'},
   'es-CO':{t:'economy',c:'USD'},'es-CL':{t:'economy',c:'USD'},'es-PE':{t:'economy',c:'USD'},
-  'es-VE':{t:'economy',c:'USD'},'es-EC':{t:'economy',c:'USD'},'es-UY':{t:'economy',c:'USD'},
-  'es-BO':{t:'economy',c:'USD'},'es-PY':{t:'economy',c:'USD'},'es-CR':{t:'economy',c:'USD'},
+  'es-VE':{t:'economy',c:'USD'},'es-EC':{t:'economy',c:'USD'},
+  'es-BO':{t:'economy',c:'USD'},'es-PY':{t:'economy',c:'USD'},
   'es-DO':{t:'economy',c:'USD'},'es-GT':{t:'economy',c:'USD'},'es-HN':{t:'economy',c:'USD'},
-  'es-SV':{t:'economy',c:'USD'},'es-PA':{t:'economy',c:'USD'},'es-NI':{t:'economy',c:'USD'},
-  'es-CU':{t:'economy',c:'USD'},'es-PR':{t:'economy',c:'USD'},
+  'es-SV':{t:'economy',c:'USD'},'es-NI':{t:'economy',c:'USD'},'es-CU':{t:'economy',c:'USD'},
+  // LatAm upper-medium (standard)
+  'es-UY':{t:'standard',c:'USD'},'es-CR':{t:'standard',c:'USD'},'es-PA':{t:'standard',c:'USD'},
+  'es-PR':{t:'premium',c:'USD'},
+  // Portuguese
   'pt-PT':{t:'premium',c:'EUR'},'pt-BR':{t:'economy',c:'BRL'},
-  'en-US':{t:'premium',c:'USD'},'en-GB':{t:'premium',c:'GBP'},'en-IN':{t:'economy',c:'INR'}
+  // English
+  'en-US':{t:'premium',c:'USD'},'en-GB':{t:'premium',c:'GBP'},'en-AU':{t:'premium',c:'USD'},
+  'en-CA':{t:'premium',c:'USD'},'en-NZ':{t:'premium',c:'USD'},'en-IN':{t:'economy',c:'INR'},
+  'en-ZA':{t:'standard',c:'USD'},'en-PH':{t:'economy',c:'USD'},'en-MY':{t:'standard',c:'USD'}
 };
 var LANG_PRICING = {
   es:{t:'premium',c:'EUR'},en:{t:'premium',c:'USD'},fr:{t:'premium',c:'EUR'},
@@ -2997,7 +3005,6 @@ var LANG_PRICING = {
   id:{t:'economy',c:'IDR'}
 };
 var currentPricing = { tier: 'premium', currencyCode: 'EUR' };
-var pricingConfirmed = false;
 
 // Try to restore geo-IP pricing from cache (instant on return visits)
 try {
@@ -3006,7 +3013,6 @@ try {
     var _cp = JSON.parse(_cached);
     if (_cp.tier && _cp.currency) {
       currentPricing = { tier: _cp.tier, currencyCode: _cp.currency };
-      pricingConfirmed = true;
     }
   }
 } catch(e) {}
@@ -3039,7 +3045,6 @@ function calcLocalPrice(eurWholeUnits) {
 }
 
 function fmtPrice(amount) {
-  if (!pricingConfirmed) return '...';
   var cur = CURRENCIES[currentPricing.currencyCode] || CURRENCIES.EUR;
   var s;
   if (cur.zd || amount === Math.floor(amount)) {
@@ -3117,14 +3122,11 @@ function fetchServerPricing() {
         try { sessionStorage.setItem('ac_geo_pricing', JSON.stringify({ tier: data.tier, currency: data.currency })); } catch(e) {}
         currentPricing.tier = data.tier;
         currentPricing.currencyCode = data.currency;
-        pricingConfirmed = true;
         renderAll();
       }
     })
     .catch(function() {
-      // Server unreachable — use client-side locale estimate as fallback
-      pricingConfirmed = true;
-      renderAll();
+      // Server unreachable — client-side locale estimate is already showing
     });
 }
 
