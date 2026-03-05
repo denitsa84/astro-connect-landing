@@ -1293,8 +1293,8 @@ es: {
   heroDesc: 'La plataforma de astrología más completa del mundo. Tecnología avanzada combinada con 8 tradiciones milenarias.',
   heroBtn1: '✦ Explorar Catálogo', heroBtn2: 'Ver Tradiciones',
   ctaTitle: 'Descubre tu destino hoy', ctaHint: 'Introduce tu fecha de nacimiento y recibe tu lectura gratuita', ctaBtn: 'Revelar mi destino', ctaFree: '✦ 100% gratis · Sin tarjeta · Resultado inmediato',
-  heroLeadPremium: '✦ Auditoria Astral GRATIS', heroLeadEconomy: '✦ Tu Suerte Semanal GRATIS',
-  leadTitle: 'Tu Lectura Gratuita', leadTitlePremium: 'Auditoria de Inversion Astral', leadTitleEconomy: 'Tu Suerte Semanal',
+  heroLeadPremium: '✦ Mapa del Alma GRATIS', heroLeadEconomy: '✦ Tu Suerte Semanal GRATIS',
+  leadTitle: 'Tu Lectura Gratuita', leadTitlePremium: 'Mapa del Alma', leadTitleEconomy: 'Tu Suerte Semanal',
   leadSub: 'Descubre lo que las estrellas tienen para ti', leadSubmit: 'Obtener mi lectura GRATIS', subscribeCheckbox: 'Recibir mi horoscopo diario por email',
   leadLoading: 'Las estrellas estan calculando...', leadCached: 'Ya tienes una lectura reciente. Aqui esta:',
   leadUpsellTitle: 'Tu lectura gratuita es solo el comienzo', leadUpsellDesc: 'Descubre tu Carta Natal Completa con 36 paginas de analisis profundo: todos tus planetas, casas, aspectos y predicciones personalizadas.',
@@ -1381,8 +1381,8 @@ en: {
   heroDesc: 'The world\'s most complete astrology platform. Advanced technology combined with 8 ancient traditions.',
   heroBtn1: '✦ Explore Catalog', heroBtn2: 'View Traditions',
   ctaTitle: 'Discover your destiny today', ctaHint: 'Enter your birth date and receive your free reading', ctaBtn: 'Reveal my destiny', ctaFree: '✦ 100% free · No card required · Instant result',
-  heroLeadPremium: '✦ Free Astral Audit', heroLeadEconomy: '✦ Free Weekly Luck',
-  leadTitle: 'Your Free Reading', leadTitlePremium: 'Astral Investment Audit', leadTitleEconomy: 'Your Weekly Luck',
+  heroLeadPremium: '✦ Free Soul Map', heroLeadEconomy: '✦ Free Weekly Luck',
+  leadTitle: 'Your Free Reading', leadTitlePremium: 'Soul Map', leadTitleEconomy: 'Your Weekly Luck',
   leadSub: 'Discover what the stars have for you', leadSubmit: 'Get my FREE reading', subscribeCheckbox: 'Receive my daily horoscope by email',
   leadLoading: 'The stars are calculating...', leadCached: 'You already have a recent reading. Here it is:',
   leadUpsellTitle: 'Your free reading is just the beginning', leadUpsellDesc: 'Discover your Complete Natal Chart with 36 pages of deep analysis: all your planets, houses, aspects and personalized predictions.',
@@ -1469,8 +1469,8 @@ bg: {
   heroDesc: 'Най-пълната астрологична платформа в света. Изкуствен интелект от последно поколение, комбиниран с 8 хилядолетни традиции.',
   heroBtn1: '✦ Разгледай Каталога', heroBtn2: 'Виж Традициите',
   ctaTitle: 'Открий съдбата си днес', ctaHint: 'Въведи рождената си дата и получи безплатно четене', ctaBtn: 'Разкрий съдбата ми', ctaFree: '✦ 100% безплатно · Без карта · Мигновен резултат',
-  heroLeadPremium: '✦ Безплатен Астрален Одит', heroLeadEconomy: '✦ Безплатен Седмичен Късмет',
-  leadTitle: 'Твоето Безплатно Четене', leadTitlePremium: 'Одит на Астрални Инвестиции', leadTitleEconomy: 'Твоят Седмичен Късмет',
+  heroLeadPremium: '✦ Безплатна Карта на Душата', heroLeadEconomy: '✦ Безплатен Седмичен Късмет',
+  leadTitle: 'Твоето Безплатно Четене', leadTitlePremium: 'Карта на Душата', leadTitleEconomy: 'Твоят Седмичен Късмет',
   leadSub: 'Открий какво звездите имат за теб', leadSubmit: 'Получи БЕЗПЛАТНО четене', subscribeCheckbox: 'Получавай дневния си хороскоп по имейл',
   leadLoading: 'Звездите изчисляват...', leadCached: 'Вече имаш скорошно четене. Ето го:',
   leadUpsellTitle: 'Безплатното четене е само началото', leadUpsellDesc: 'Открий пълната си Натална Карта с 36 страници задълбочен анализ: всичките ти планети, домове, аспекти и персонализирани предсказания.',
@@ -5039,7 +5039,7 @@ function heroRevealDestiny() {
 function openLeadMagnetModal(preBirthDate, forceType) {
   var leadType = forceType || 'suerte-semanal';
   var modalTitle = leadType === 'auditoria-astral'
-    ? (t('leadTitlePremium') || 'Auditoria de Inversion Astral')
+    ? (t('leadTitlePremium') || 'Mapa del Alma')
     : (t('leadTitleEconomy') || 'Tu Suerte Semanal');
 
   var overlay = document.getElementById('lead-modal-overlay');
