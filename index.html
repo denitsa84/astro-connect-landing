@@ -4968,7 +4968,7 @@ function submitLeadMagnet(e) {
       return;
     }
     closeLeadModal();
-    showFreeReading(data.reading, data.readingUrl, body.customerName);
+    showFreeReading(data.reading, data.readingUrl, body.customerName, body.birthDate);
   })
   .catch(function(err) {
     console.error('Lead magnet error:', err);
@@ -4978,7 +4978,51 @@ function submitLeadMagnet(e) {
   });
 }
 
-function showFreeReading(reading, readingUrl, customerName) {
+function getSunSignJS(birthDate) {
+  var d = new Date(birthDate);
+  var m = d.getMonth() + 1, day = d.getDate();
+  if ((m===3&&day>=21)||(m===4&&day<=19)) return 'Aries';
+  if ((m===4&&day>=20)||(m===5&&day<=20)) return 'Tauro';
+  if ((m===5&&day>=21)||(m===6&&day<=20)) return 'Geminis';
+  if ((m===6&&day>=21)||(m===7&&day<=22)) return 'Cancer';
+  if ((m===7&&day>=23)||(m===8&&day<=22)) return 'Leo';
+  if ((m===8&&day>=23)||(m===9&&day<=22)) return 'Virgo';
+  if ((m===9&&day>=23)||(m===10&&day<=22)) return 'Libra';
+  if ((m===10&&day>=23)||(m===11&&day<=21)) return 'Escorpio';
+  if ((m===11&&day>=22)||(m===12&&day<=21)) return 'Sagitario';
+  if ((m===12&&day>=22)||(m===1&&day<=19)) return 'Capricornio';
+  if ((m===1&&day>=20)||(m===2&&day<=18)) return 'Acuario';
+  return 'Piscis';
+}
+
+function buildShareCardUrl(title, intro, name, sign, date) {
+  var baseUrl = 'https://my.astro-connect.app/api/og/share-card';
+  var truncIntro = intro && intro.length > 120 ? intro.slice(0,117) + '...' : (intro || '');
+  var params = new URLSearchParams({
+    title: title || '', intro: truncIntro, name: name || '',
+    sign: sign || '', date: date || '', type: 'Lectura Gratuita'
+  });
+  return baseUrl + '?' + params.toString();
+}
+
+function shareCardAction(imageUrl, title, name) {
+  if (navigator.share) {
+    fetch(imageUrl).then(function(r){return r.blob();}).then(function(blob){
+      var file = new File([blob], 'astro-connect-reading.png', {type:'image/png'});
+      navigator.share({title: title, text: name + ' — ' + title, files:[file]});
+    }).catch(function(){ downloadCard(imageUrl); });
+  } else {
+    downloadCard(imageUrl);
+  }
+}
+
+function downloadCard(imageUrl) {
+  var a = document.createElement('a');
+  a.href = imageUrl; a.download = 'astro-connect-reading.png'; a.target = '_blank';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+function showFreeReading(reading, readingUrl, customerName, birthDate) {
   var overlay = document.getElementById('free-reading-overlay');
   if (!overlay) {
     overlay = document.createElement('div');
@@ -4993,6 +5037,11 @@ function showFreeReading(reading, readingUrl, customerName) {
       sectionsHtml += '<div class="fr-section"><h3>' + s.titulo + '</h3><p>' + s.contenido + '</p></div>';
     });
   }
+
+  var sign = birthDate ? getSunSignJS(birthDate) : '';
+  var shareUrl = birthDate ? buildShareCardUrl(reading.titulo, reading.introduccion, customerName, sign, birthDate) : '';
+  var safeTitle = (reading.titulo || '').replace(/'/g, "\\'");
+  var safeName = (customerName || '').replace(/'/g, "\\'");
 
   overlay.innerHTML = `
     <div class="free-reading-content">
@@ -5016,6 +5065,21 @@ function showFreeReading(reading, readingUrl, customerName) {
       </div>
       <div class="fr-final">
         <p>${reading.mensaje_final || ''}</p>
+      </div>
+      <div style="text-align:center;margin:24px 0;">
+        <p style="color:#6B5B8D;font-size:0.85rem;margin-bottom:12px;">Comparte tu lectura con el mundo</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <button onclick="shareCardAction('${shareUrl}', '${safeTitle}', '${safeName}')"
+            style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:12px;font-weight:bold;font-size:0.85rem;background:linear-gradient(135deg,rgba(212,168,67,0.15),rgba(123,79,191,0.15));border:1px solid rgba(212,168,67,0.3);color:#F7D96E;cursor:pointer;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Compartir
+          </button>
+          <button onclick="downloadCard('${shareUrl}')"
+            style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:12px;font-weight:bold;font-size:0.85rem;background:transparent;border:1px solid rgba(155,142,196,0.3);color:#9B8EC4;cursor:pointer;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Descargar tarjeta
+          </button>
+        </div>
       </div>
       <div class="fr-upsell">
         <div style="font-size:2.5rem;margin-bottom:12px;">✦</div>
