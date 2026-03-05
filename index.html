@@ -1290,7 +1290,7 @@ es: {
   ctaTitle: 'Descubre tu destino hoy', ctaHint: 'Introduce tu fecha de nacimiento y recibe tu lectura gratuita', ctaBtn: 'Revelar mi destino', ctaFree: '✦ 100% gratis · Sin tarjeta · Resultado inmediato',
   heroLeadPremium: '✦ Auditoria Astral GRATIS', heroLeadEconomy: '✦ Tu Suerte Semanal GRATIS',
   leadTitle: 'Tu Lectura Gratuita', leadTitlePremium: 'Auditoria de Inversion Astral', leadTitleEconomy: 'Tu Suerte Semanal',
-  leadSub: 'Descubre lo que las estrellas tienen para ti', leadSubmit: 'Obtener mi lectura GRATIS',
+  leadSub: 'Descubre lo que las estrellas tienen para ti', leadSubmit: 'Obtener mi lectura GRATIS', subscribeCheckbox: 'Recibir mi horoscopo diario por email',
   leadLoading: 'Las estrellas estan calculando...', leadCached: 'Ya tienes una lectura reciente. Aqui esta:',
   leadUpsellTitle: 'Tu lectura gratuita es solo el comienzo', leadUpsellDesc: 'Descubre tu Carta Natal Completa con 36 paginas de analisis profundo: todos tus planetas, casas, aspectos y predicciones personalizadas.',
   leadUpsellBtn: 'Ver mi Carta Natal Completa', leadUpsellPrice: 'Desde 139 EUR',
@@ -1378,7 +1378,7 @@ en: {
   ctaTitle: 'Discover your destiny today', ctaHint: 'Enter your birth date and receive your free reading', ctaBtn: 'Reveal my destiny', ctaFree: '✦ 100% free · No card required · Instant result',
   heroLeadPremium: '✦ Free Astral Audit', heroLeadEconomy: '✦ Free Weekly Luck',
   leadTitle: 'Your Free Reading', leadTitlePremium: 'Astral Investment Audit', leadTitleEconomy: 'Your Weekly Luck',
-  leadSub: 'Discover what the stars have for you', leadSubmit: 'Get my FREE reading',
+  leadSub: 'Discover what the stars have for you', leadSubmit: 'Get my FREE reading', subscribeCheckbox: 'Receive my daily horoscope by email',
   leadLoading: 'The stars are calculating...', leadCached: 'You already have a recent reading. Here it is:',
   leadUpsellTitle: 'Your free reading is just the beginning', leadUpsellDesc: 'Discover your Complete Natal Chart with 36 pages of deep analysis: all your planets, houses, aspects and personalized predictions.',
   leadUpsellBtn: 'See my Complete Natal Chart', leadUpsellPrice: 'From 139 EUR',
@@ -1466,7 +1466,7 @@ bg: {
   ctaTitle: 'Открий съдбата си днес', ctaHint: 'Въведи рождената си дата и получи безплатно четене', ctaBtn: 'Разкрий съдбата ми', ctaFree: '✦ 100% безплатно · Без карта · Мигновен резултат',
   heroLeadPremium: '✦ Безплатен Астрален Одит', heroLeadEconomy: '✦ Безплатен Седмичен Късмет',
   leadTitle: 'Твоето Безплатно Четене', leadTitlePremium: 'Одит на Астрални Инвестиции', leadTitleEconomy: 'Твоят Седмичен Късмет',
-  leadSub: 'Открий какво звездите имат за теб', leadSubmit: 'Получи БЕЗПЛАТНО четене',
+  leadSub: 'Открий какво звездите имат за теб', leadSubmit: 'Получи БЕЗПЛАТНО четене', subscribeCheckbox: 'Получавай дневния си хороскоп по имейл',
   leadLoading: 'Звездите изчисляват...', leadCached: 'Вече имаш скорошно четене. Ето го:',
   leadUpsellTitle: 'Безплатното четене е само началото', leadUpsellDesc: 'Открий пълната си Натална Карта с 36 страници задълбочен анализ: всичките ти планети, домове, аспекти и персонализирани предсказания.',
   leadUpsellBtn: 'Виж пълната Натална Карта', leadUpsellPrice: 'От 139 EUR',
@@ -4917,6 +4917,10 @@ function openLeadMagnetModal(preBirthDate) {
         <input type="text" name="birthCountry" placeholder="${t('fCountry') || 'Pais de nacimiento'}">
         <label>${t('fEmail') || 'Email'}</label>
         <input type="email" name="email" required placeholder="tu@email.com">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin:16px 0 8px;padding:12px 16px;border-radius:12px;background:linear-gradient(135deg,rgba(123,79,191,0.08),rgba(212,168,67,0.08));border:1px solid rgba(123,79,191,0.15);">
+          <input type="checkbox" name="subscribeDaily" value="true" checked style="width:18px;height:18px;accent-color:#F7D96E;cursor:pointer;">
+          <span style="color:#EDE8F5;font-size:0.9rem;">${t('subscribeCheckbox') || 'Recibir mi horoscopo diario por email'}</span>
+        </label>
         <button type="submit" class="lead-submit" id="lead-submit-btn">${t('leadSubmit') || 'Obtener mi lectura GRATIS'}</button>
       </form>
     </div>`;
@@ -4952,6 +4956,7 @@ function submitLeadMagnet(e) {
     birthCountry: fd.get('birthCountry') || '',
     leadType: fd.get('leadType'),
     language: currentLang || 'es',
+    subscribeDaily: fd.get('subscribeDaily') === 'true',
   };
 
   fetch('https://my.astro-connect.app/api/lead-magnet', {
