@@ -705,14 +705,80 @@ body {
 .free-reading-content .fr-final { text-align: center; padding: 32px 0; border-top: 1px solid rgba(247,217,110,0.08); border-bottom: 1px solid rgba(247,217,110,0.08); margin: 32px 0; }
 .free-reading-content .fr-final p { color: #EDE8F5; font-size: 1.05rem; line-height: 1.8; font-style: italic; white-space: pre-line; }
 .fr-upsell {
-  background: linear-gradient(135deg, rgba(212,168,67,0.1), rgba(123,79,191,0.1));
-  border: 2px solid rgba(212,168,67,0.3); border-radius: 20px;
-  padding: 40px; text-align: center; margin: 40px 0;
+  margin: 40px 0; text-align: center;
 }
-.fr-upsell h2 { color: var(--gold); font-family: 'Cinzel', serif; font-size: 1.4rem; margin-bottom: 16px; }
-.fr-upsell p { color: #EDE8F5; font-size: 0.95rem; line-height: 1.7; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; }
-.fr-upsell .btn-gold { font-size: 1rem; padding: 16px 40px; }
-.fr-upsell .fr-price-note { color: #9B8EC4; font-size: 0.85rem; margin-top: 12px; }
+.fr-upsell h2 { color: var(--gold); font-family: 'Cinzel', serif; font-size: 1.4rem; margin-bottom: 8px; }
+.fr-upsell > p { color: #9B8EC4; font-size: 0.9rem; margin-bottom: 28px; }
+.ladder-grid { display: flex; flex-direction: column; gap: 16px; }
+.ladder-card {
+  border-radius: 16px; padding: 28px 24px; text-align: center; position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.ladder-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+.ladder-tag {
+  position: absolute; top: -10px; right: 20px;
+  padding: 4px 14px; border-radius: 12px; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.ladder-free { background: rgba(34,197,94,0.08); border: 1.5px solid rgba(34,197,94,0.25); }
+.ladder-free .ladder-tag { background: #22C55E; color: #fff; }
+.ladder-free .ladder-icon { color: #22C55E; }
+.ladder-mid { background: rgba(212,168,67,0.08); border: 1.5px solid rgba(212,168,67,0.25); }
+.ladder-mid .ladder-tag { background: var(--gold); color: #06050E; }
+.ladder-mid .ladder-icon { color: var(--gold); }
+.ladder-prem { background: linear-gradient(135deg, rgba(123,79,191,0.12), rgba(212,168,67,0.08)); border: 2px solid rgba(212,168,67,0.4); }
+.ladder-prem .ladder-tag { background: linear-gradient(135deg, #7B4FBF, var(--gold)); color: #fff; }
+.ladder-prem .ladder-icon { color: #C4A0FF; }
+.ladder-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.ladder-card h3 { font-family: 'Cinzel', serif; color: #fff; font-size: 1.05rem; margin-bottom: 6px; }
+.ladder-card p { color: #B8A9D4; font-size: 0.82rem; line-height: 1.5; margin-bottom: 14px; }
+.ladder-card .ladder-price { color: var(--gold); font-size: 0.85rem; font-weight: 600; margin-bottom: 12px; }
+.ladder-btn-free {
+  background: rgba(34,197,94,0.15); color: #22C55E; border: 1px solid rgba(34,197,94,0.4);
+  padding: 10px 28px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem;
+  transition: background 0.2s;
+}
+.ladder-btn-free:hover { background: rgba(34,197,94,0.25); }
+.ladder-btn-free.active { background: rgba(34,197,94,0.2); cursor: default; opacity: 0.8; }
+.ladder-btn-mid {
+  background: rgba(212,168,67,0.15); color: var(--gold); border: 1px solid rgba(212,168,67,0.4);
+  padding: 10px 28px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem;
+  transition: background 0.2s;
+}
+.ladder-btn-mid:hover { background: rgba(212,168,67,0.25); }
+.ladder-btn-prem {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #06050E;
+  padding: 14px 36px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.95rem;
+  border: none; transition: transform 0.2s, box-shadow 0.2s;
+}
+.ladder-btn-prem:hover { transform: scale(1.05); box-shadow: 0 8px 32px rgba(212,168,67,0.3); }
+.ladder-packs { color: #9B8EC4; font-size: 0.8rem; margin-top: 8px; }
+/* Buy float bar */
+.buy-float-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 9997;
+  background: linear-gradient(135deg, rgba(6,5,14,0.98), rgba(18,16,36,0.98));
+  border-top: 2px solid rgba(212,168,67,0.3);
+  padding: 12px 24px; display: flex; align-items: center; justify-content: center; gap: 16px;
+  transform: translateY(100%); transition: transform 0.4s ease;
+  backdrop-filter: blur(12px);
+}
+.buy-float-bar.visible { transform: translateY(0); }
+.buy-float-bar .bf-text { color: #EDE8F5; font-size: 0.85rem; font-weight: 500; }
+.buy-float-bar .bf-btn {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #06050E;
+  padding: 10px 28px; border-radius: 8px; border: none; font-weight: 700; cursor: pointer;
+  font-size: 0.85rem; transition: transform 0.2s; white-space: nowrap;
+}
+.buy-float-bar .bf-btn:hover { transform: scale(1.05); }
+.buy-float-bar .bf-close {
+  background: none; border: none; color: #6B5B8D; cursor: pointer; font-size: 1.2rem;
+  padding: 4px 8px;
+}
+@media (max-width: 600px) {
+  .buy-float-bar { flex-wrap: wrap; gap: 8px; padding: 10px 12px; }
+  .buy-float-bar .bf-text { font-size: 0.75rem; text-align: center; width: 100%; }
+  .buy-float-bar .bf-btn { width: 100%; text-align: center; }
+}
 .hero-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1572,6 +1638,13 @@ body {
     <button class="vf-close" onclick="closeViralBar()" aria-label="Cerrar">&times;</button>
   </div>
 
+  <!-- BUY FLOATING BAR (appears after free reading) -->
+  <div id="buy-float-bar" class="buy-float-bar">
+    <span class="bf-text" id="bf-text"></span>
+    <button class="bf-btn" id="bf-btn" onclick="scrollTo('#catalog');"></button>
+    <button class="bf-close" onclick="closeBuyBar()" aria-label="Cerrar">&times;</button>
+  </div>
+
   <!-- TEST MODE PANEL -->
   <div id="test-panel" class="test-panel"></div>
   <div id="test-result-overlay" class="test-result-overlay" onclick="if(event.target===this)this.style.display='none'">
@@ -1675,7 +1748,13 @@ es: {
   viralShareTitle: 'Comparte tu lectura con el mundo', viralShareSub: 'Tus amigos también quieren conocer su destino',
   viralBonusPreview: 'Tu Número de la Suerte · Color del Día · Cristal Protector',
   viralUnlockTitle: 'Contenido Bonus Bloqueado', viralUnlockSub: 'Comparte tu lectura en cualquier red para desbloquearlo', viralUnlockBtn: 'Compartir para desbloquear',
-  viralFloatText: 'Conoce tu destino cósmico gratis', viralFloatShare: 'Compartir'
+  viralFloatText: 'Conoce tu destino cósmico gratis', viralFloatShare: 'Compartir',
+  ladderTitle: '✦ Tu camino está escrito en las estrellas',
+  ladderSub: 'Elige tu nivel de profundidad',
+  ladderFreeTag: 'GRATIS', ladderFreeTitle: 'Horóscopo Diario', ladderFreeDesc: 'Recibe cada mañana tu horóscopo personalizado por email. Gratis para siempre.', ladderFreeBtn: 'Suscribirme Gratis', ladderFreeActive: '✓ Ya estás suscrito',
+  ladderMidTag: 'POPULAR', ladderMidTitle: 'Respuestas Cósmicas', ladderMidDesc: 'Compatibilidad de pareja, predicciones semanales o una pregunta al I Ching. Lecturas accesibles para cada momento.', ladderMidPrice: 'Desde €22', ladderMidBtn: 'Ver opciones desde €22',
+  ladderPremTag: 'PREMIUM', ladderPremTitle: 'Tu Carta Natal Completa', ladderPremDesc: '36 páginas de análisis profundo: todos tus planetas, casas, aspectos y predicciones del año. Tu mapa cósmico definitivo.', ladderPremPrice: 'Desde €139', ladderPremBtn: 'Descubrir mi Carta Natal', ladderPremPacks: 'O elige un Pack desde €179 con hasta 40% de ahorro',
+  buyFloatText: '✦ Tu lectura completa te espera', buyFloatBtn: 'Ver Carta Natal — desde €139'
 },
 en: {
   sidebarLogo: '✦ Astro Connect', sidebarSub: 'Your Cosmic Guide',
@@ -1769,7 +1848,13 @@ en: {
   viralShareTitle: 'Share your reading with the world', viralShareSub: 'Your friends also want to know their destiny',
   viralBonusPreview: 'Your Lucky Number · Color of the Day · Protective Crystal',
   viralUnlockTitle: 'Bonus Content Locked', viralUnlockSub: 'Share your reading on any network to unlock it', viralUnlockBtn: 'Share to unlock',
-  viralFloatText: 'Discover your cosmic destiny for free', viralFloatShare: 'Share'
+  viralFloatText: 'Discover your cosmic destiny for free', viralFloatShare: 'Share',
+  ladderTitle: '✦ Your path is written in the stars',
+  ladderSub: 'Choose your level of depth',
+  ladderFreeTag: 'FREE', ladderFreeTitle: 'Daily Horoscope', ladderFreeDesc: 'Receive your personalized horoscope every morning by email. Free forever.', ladderFreeBtn: 'Subscribe Free', ladderFreeActive: '✓ Already subscribed',
+  ladderMidTag: 'POPULAR', ladderMidTitle: 'Cosmic Answers', ladderMidDesc: 'Couple compatibility, weekly predictions or an I Ching question. Accessible readings for every moment.', ladderMidPrice: 'From €22', ladderMidBtn: 'See options from €22',
+  ladderPremTag: 'PREMIUM', ladderPremTitle: 'Your Complete Natal Chart', ladderPremDesc: '36 pages of deep analysis: all your planets, houses, aspects and yearly predictions. Your definitive cosmic blueprint.', ladderPremPrice: 'From €139', ladderPremBtn: 'Discover my Natal Chart', ladderPremPacks: 'Or choose a Pack from €179 with up to 40% off',
+  buyFloatText: '✦ Your complete reading awaits', buyFloatBtn: 'See Natal Chart — from €139'
 },
 bg: {
   sidebarLogo: '✦ Astro Connect', sidebarSub: 'Твоят Космически Пътеводител',
@@ -1836,7 +1921,13 @@ bg: {
   footerDisclaimer: 'Астрологичните четения са ориентировъчни и не заместват професионалния медицински, юридически или финансов съвет.',
   tagPopular: 'Популярен', tagNuevo: 'Нов', tagPremium: 'Премиум', tagExclusivo: 'Ексклузивен',
   tagBestseller: 'Бестселър', tagParejas: 'Двойки', tagPadres: 'Родители',
-  tagNegocios: 'Бизнес', tagSalud: 'Здраве', tagEspiritual: 'Духовен', tagOriental: 'Ориенталски', dailyTitle: 'Безплатен дневен хороскоп', dailySub: 'Всяка сутрин в имейла ти — обща прогноза за твоя зодиакален знак', dailyBtn: 'Абонирай се безплатно', dailySuccess: 'Успешен абонамент!', dailySuccessMsg: 'Ще получаваш общия си хороскоп по знак всяка сутрин. Безплатно е.', dailyFree: '100% безплатно. Това е общ хороскоп по знак, не персонализирано четене. Отказ по всяко време.', dailySign: 'Твоят зодиакален знак', dailySignPlaceholder: 'Избери знак', signs: { Aries:'Овен', Tauro:'Телец', Geminis:'Близнаци', Cancer:'Рак', Leo:'Лъв', Virgo:'Дева', Libra:'Везни', Escorpio:'Скорпион', Sagitario:'Стрелец', Capricornio:'Козирог', Acuario:'Водолей', Piscis:'Риби' }
+  tagNegocios: 'Бизнес', tagSalud: 'Здраве', tagEspiritual: 'Духовен', tagOriental: 'Ориенталски', dailyTitle: 'Безплатен дневен хороскоп', dailySub: 'Всяка сутрин в имейла ти — обща прогноза за твоя зодиакален знак', dailyBtn: 'Абонирай се безплатно', dailySuccess: 'Успешен абонамент!', dailySuccessMsg: 'Ще получаваш общия си хороскоп по знак всяка сутрин. Безплатно е.', dailyFree: '100% безплатно. Това е общ хороскоп по знак, не персонализирано четене. Отказ по всяко време.', dailySign: 'Твоят зодиакален знак', dailySignPlaceholder: 'Избери знак', signs: { Aries:'Овен', Tauro:'Телец', Geminis:'Близнаци', Cancer:'Рак', Leo:'Лъв', Virgo:'Дева', Libra:'Везни', Escorpio:'Скорпион', Sagitario:'Стрелец', Capricornio:'Козирог', Acuario:'Водолей', Piscis:'Риби' },
+  ladderTitle: '✦ Пътят ти е записан в звездите',
+  ladderSub: 'Избери своята дълбочина на познание',
+  ladderFreeTag: 'БЕЗПЛАТНО', ladderFreeTitle: 'Дневен Хороскоп', ladderFreeDesc: 'Получавай всяка сутрин персонален хороскоп по имейл. Безплатно завинаги.', ladderFreeBtn: 'Абонирай се безплатно', ladderFreeActive: '✓ Вече си абониран',
+  ladderMidTag: 'ПОПУЛЯРНО', ladderMidTitle: 'Космически Отговори', ladderMidDesc: 'Съвместимост на двойката, седмични предсказания или въпрос към I Ching. Достъпни четения за всеки момент.', ladderMidPrice: 'От €22', ladderMidBtn: 'Виж опции от €22',
+  ladderPremTag: 'ПРЕМИУМ', ladderPremTitle: 'Пълна Натална Карта', ladderPremDesc: '36 страници задълбочен анализ — всичките ти планети, домове, аспекти и годишни предсказания. Твоята окончателна космическа карта.', ladderPremPrice: 'От €139', ladderPremBtn: 'Открий Наталната си Карта', ladderPremPacks: 'Или избери Пакет от €179 с до 40% отстъпка',
+  buyFloatText: '✦ Пълното ти четене те очаква', buyFloatBtn: 'Виж Натална Карта — от €139'
 },
 fr: {
   sidebarLogo: '✦ Astro Connect', sidebarSub: 'Votre Guide Cosmique',
@@ -5597,6 +5688,8 @@ function submitLeadMagnet(e) {
     language: currentLang || 'es',
     subscribeDaily: fd.get('subscribeDaily') === 'true',
   };
+  // Track daily subscription state for value ladder
+  if (body.subscribeDaily) window._userSubscribedDaily = true;
 
   fetch('https://my.astro-connect.app/api/lead-magnet', {
     method: 'POST',
@@ -5823,11 +5916,36 @@ function showFreeReading(reading, readingUrl, customerName, birthDate) {
         </div>
       </div>
       <div class="fr-upsell">
-        <div style="font-size:2.5rem;margin-bottom:12px;">✦</div>
-        <h2>${t('leadUpsellTitle') || 'Tu lectura gratuita es solo el comienzo'}</h2>
-        <p>${t('leadUpsellDesc') || 'Descubre tu Carta Natal Completa con 36 paginas de analisis profundo.'}</p>
-        <button class="btn-gold" onclick="closeFreeReading();scrollTo('#catalog');">${t('leadUpsellBtn') || 'Ver mi Carta Natal Completa'}</button>
-        <p class="fr-price-note">${t('leadUpsellPrice') || 'Desde 139 EUR'} · ${t('checkoutNote') || 'Entrega por email en máximo 24h'}</p>
+        <h2>${t('ladderTitle') || '✦ Tu camino está escrito en las estrellas'}</h2>
+        <p>${t('ladderSub') || 'Elige tu nivel de profundidad'}</p>
+        <div class="ladder-grid">
+          <div class="ladder-card ladder-free">
+            <span class="ladder-tag">${t('ladderFreeTag') || 'GRATIS'}</span>
+            <div class="ladder-icon">&#9788;</div>
+            <h3>${t('ladderFreeTitle') || 'Horóscopo Diario'}</h3>
+            <p>${t('ladderFreeDesc') || 'Recibe cada mañana tu horóscopo personalizado por email. Gratis para siempre.'}</p>
+            <button class="ladder-btn-free${window._userSubscribedDaily ? ' active' : ''}" id="ladder-free-btn" onclick="ladderFreeClick()">
+              ${window._userSubscribedDaily ? (t('ladderFreeActive') || '✓ Ya estás suscrito') : (t('ladderFreeBtn') || 'Suscribirme Gratis')}
+            </button>
+          </div>
+          <div class="ladder-card ladder-mid">
+            <span class="ladder-tag">${t('ladderMidTag') || 'POPULAR'}</span>
+            <div class="ladder-icon">&#9829;</div>
+            <h3>${t('ladderMidTitle') || 'Respuestas Cósmicas'}</h3>
+            <p>${t('ladderMidDesc') || 'Compatibilidad de pareja, predicciones semanales o una pregunta al I Ching.'}</p>
+            <div class="ladder-price">${t('ladderMidPrice') || 'Desde €22'}</div>
+            <button class="ladder-btn-mid" onclick="closeFreeReading();scrollTo('#catalog');">${t('ladderMidBtn') || 'Ver opciones desde €22'}</button>
+          </div>
+          <div class="ladder-card ladder-prem">
+            <span class="ladder-tag">${t('ladderPremTag') || 'PREMIUM'}</span>
+            <div class="ladder-icon">&#10022;</div>
+            <h3>${t('ladderPremTitle') || 'Tu Carta Natal Completa'}</h3>
+            <p>${t('ladderPremDesc') || '36 páginas de análisis profundo. Tu mapa cósmico definitivo.'}</p>
+            <div class="ladder-price">${t('ladderPremPrice') || 'Desde €139'}</div>
+            <button class="ladder-btn-prem" onclick="closeFreeReading();scrollTo('#catalog');">${t('ladderPremBtn') || 'Descubrir mi Carta Natal'}</button>
+            <p class="ladder-packs">${t('ladderPremPacks') || 'O elige un Pack desde €179 con hasta 40% de ahorro'}</p>
+          </div>
+        </div>
       </div>
       ${readingUrl ? '<div style="text-align:center;margin:24px 0;"><a href="' + readingUrl + '" target="_blank" style="color:#9B8EC4;font-size:0.85rem;">Ver lectura online →</a></div>' : ''}
       <div style="text-align:center;margin-top:32px;padding-top:16px;border-top:1px solid rgba(247,217,110,0.08);">
@@ -5841,11 +5959,49 @@ function showFreeReading(reading, readingUrl, customerName, birthDate) {
 function closeFreeReading() {
   var overlay = document.getElementById('free-reading-overlay');
   if (overlay) { overlay.classList.remove('active'); }
+  // Mark lead as completed and show buy float bar
+  sessionStorage.setItem('lead_completed', '1');
+  showBuyBar();
+}
+
+// === LADDER FREE CLICK ===
+function ladderFreeClick() {
+  if (window._userSubscribedDaily) return;
+  closeFreeReading();
+  scrollTo('#horoscopo-diario');
+}
+
+// === BUY FLOATING BAR ===
+function showBuyBar() {
+  // Hide viral bar, show buy bar
+  var viralBar = document.getElementById('viral-float-bar');
+  if (viralBar) viralBar.classList.remove('visible');
+  var bar = document.getElementById('buy-float-bar');
+  if (!bar) return;
+  var bfText = document.getElementById('bf-text');
+  var bfBtn = document.getElementById('bf-btn');
+  if (bfText) bfText.textContent = t('buyFloatText') || '✦ Tu lectura completa te espera';
+  if (bfBtn) bfBtn.textContent = t('buyFloatBtn') || 'Ver Carta Natal — desde €139';
+  requestAnimationFrame(function() { bar.classList.add('visible'); });
+}
+
+function closeBuyBar() {
+  var bar = document.getElementById('buy-float-bar');
+  if (bar) bar.classList.remove('visible');
+  sessionStorage.setItem('buy_bar_closed', '1');
+}
+
+function initBuyBar() {
+  // If user already completed lead and hasn't closed buy bar, show it
+  if (sessionStorage.getItem('lead_completed') && !sessionStorage.getItem('buy_bar_closed')) {
+    showBuyBar();
+  }
 }
 
 // === VIRAL FLOATING BAR ===
 function initViralBar() {
   if (sessionStorage.getItem('viral_bar_closed')) return;
+  if (sessionStorage.getItem('lead_completed')) return; // Buy bar takes priority
   var bar = document.getElementById('viral-float-bar');
   if (!bar) return;
   // Actualizar textos segun idioma
@@ -5897,6 +6053,7 @@ function init() {
   initTestMode();
   fetchServerPricing();
   initViralBar();
+  initBuyBar();
 }
 
 document.addEventListener('DOMContentLoaded', init);
