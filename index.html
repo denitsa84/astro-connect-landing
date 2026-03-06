@@ -454,7 +454,14 @@ body {
   width: 220px; height: 220px;
   margin-bottom: 24px;
   position: relative;
-  animation: eyeFloat 6s ease-in-out infinite;
+  animation: eyeFloat 6s ease-in-out infinite, cosmicSpin 60s linear infinite;
+  filter: drop-shadow(0 0 15px rgba(255,215,0,0.3));
+  will-change: transform;
+  transition: filter 0.6s ease;
+}
+.cosmic-eye-container:hover {
+  filter: drop-shadow(0 0 25px rgba(255,215,0,0.6));
+  animation: eyeFloat 6s ease-in-out infinite, cosmicSpin 120s linear infinite;
 }
 .cosmic-eye-container svg { width: 100%; height: 100%; filter: drop-shadow(0 0 30px rgba(212,168,67,0.3)) drop-shadow(0 0 60px rgba(123,79,191,0.15)); }
 .cosmic-eye-container .eye-iris { transform-origin: 250px 250px; animation: irisPulse 4s ease-in-out infinite; }
@@ -467,6 +474,7 @@ body {
 .cosmic-eye-ring::after { content: '✦'; position: absolute; top: -5px; left: 50%; transform: translateX(-50%); color: var(--gold); font-size: 10px; opacity: 0.6; }
 .cosmic-eye-ring2 { position: absolute; inset: -30px; border: 1px dashed rgba(123,79,191,0.1); border-radius: 50%; animation: ringSpin 30s linear infinite reverse; }
 @keyframes eyeFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes cosmicSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 @keyframes irisPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.06); opacity: 0.9; } }
 @keyframes pupilPulse { 0%, 100% { transform: scale(1); } 40% { transform: scale(0.92); } 60% { transform: scale(1.05); } }
 @keyframes starSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
