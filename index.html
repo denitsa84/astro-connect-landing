@@ -6142,13 +6142,25 @@ function viralFloatShare(platform) {
   var shareText = t('viralFloatText') || 'Conoce tu destino cosmico gratis';
   var shareUrl = 'https://astro-connect.app?lang=' + currentLang;
   if (platform === 'whatsapp') {
-    window.open('https://wa.me/?text=' + encodeURIComponent(shareText + '\n' + shareUrl), '_blank');
+    window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(shareText + '\n' + shareUrl), '_blank');
   } else if (platform === 'native') {
     if (navigator.share) {
-      navigator.share({ title: 'Astro Connect', text: shareText, url: shareUrl });
+      navigator.share({ title: 'Astro Connect', text: shareText, url: shareUrl }).catch(function(){});
     } else {
-      navigator.clipboard.writeText(shareUrl);
-      alert(t('viralFloatShare') + ' - Link copiado!');
+      try {
+        navigator.clipboard.writeText(shareUrl).then(function() {
+          alert('Link copiado!');
+        });
+      } catch(e) {
+        // Fallback: input temporal
+        var inp = document.createElement('input');
+        inp.value = shareUrl;
+        document.body.appendChild(inp);
+        inp.select();
+        document.execCommand('copy');
+        document.body.removeChild(inp);
+        alert('Link copiado!');
+      }
     }
   }
 }
