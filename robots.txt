@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://astro-connect.app/sitemap.xml
+Sitemap: https://astroaureum.com/sitemap.xml
