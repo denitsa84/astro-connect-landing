@@ -448,7 +448,9 @@ body {
   margin-bottom: 24px;
   position: relative;
   filter: drop-shadow(0 0 15px rgba(255,215,0,0.3));
+  animation: eyeFloat 8s ease-in-out infinite;
 }
+@keyframes eyeFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 .cosmic-eye-container img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
 .cosmic-eye-ring { position: absolute; inset: -15px; border: 1px solid rgba(212,168,67,0.12); border-radius: 50%; animation: ringSpin 20s linear infinite; }
 .cosmic-eye-ring::after { content: '✦'; position: absolute; top: -5px; left: 50%; transform: translateX(-50%); color: var(--gold); font-size: 10px; opacity: 0.6; }
