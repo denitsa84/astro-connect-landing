@@ -37,34 +37,34 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="canonical" href="https://astroaureum.com">
+  <link rel="canonical" href="https://astroaureum.com/">
   <!-- hreflang: SEO internacional 25 idiomas -->
-  <link rel="alternate" hreflang="x-default" href="https://astroaureum.com">
-  <link rel="alternate" hreflang="es" href="https://astroaureum.com?lang=es">
-  <link rel="alternate" hreflang="en" href="https://astroaureum.com?lang=en">
-  <link rel="alternate" hreflang="bg" href="https://astroaureum.com?lang=bg">
-  <link rel="alternate" hreflang="fr" href="https://astroaureum.com?lang=fr">
-  <link rel="alternate" hreflang="de" href="https://astroaureum.com?lang=de">
-  <link rel="alternate" hreflang="it" href="https://astroaureum.com?lang=it">
-  <link rel="alternate" hreflang="pt" href="https://astroaureum.com?lang=pt">
-  <link rel="alternate" hreflang="ru" href="https://astroaureum.com?lang=ru">
-  <link rel="alternate" hreflang="zh" href="https://astroaureum.com?lang=zh">
-  <link rel="alternate" hreflang="ja" href="https://astroaureum.com?lang=ja">
-  <link rel="alternate" hreflang="ko" href="https://astroaureum.com?lang=ko">
-  <link rel="alternate" hreflang="ar" href="https://astroaureum.com?lang=ar">
-  <link rel="alternate" hreflang="hi" href="https://astroaureum.com?lang=hi">
-  <link rel="alternate" hreflang="tr" href="https://astroaureum.com?lang=tr">
-  <link rel="alternate" hreflang="nl" href="https://astroaureum.com?lang=nl">
-  <link rel="alternate" hreflang="sv" href="https://astroaureum.com?lang=sv">
-  <link rel="alternate" hreflang="pl" href="https://astroaureum.com?lang=pl">
-  <link rel="alternate" hreflang="ro" href="https://astroaureum.com?lang=ro">
-  <link rel="alternate" hreflang="el" href="https://astroaureum.com?lang=el">
-  <link rel="alternate" hreflang="th" href="https://astroaureum.com?lang=th">
-  <link rel="alternate" hreflang="vi" href="https://astroaureum.com?lang=vi">
-  <link rel="alternate" hreflang="id" href="https://astroaureum.com?lang=id">
-  <link rel="alternate" hreflang="he" href="https://astroaureum.com?lang=he">
-  <link rel="alternate" hreflang="uk" href="https://astroaureum.com?lang=uk">
-  <link rel="alternate" hreflang="cs" href="https://astroaureum.com?lang=cs">
+  <link rel="alternate" hreflang="x-default" href="https://astroaureum.com/">
+  <link rel="alternate" hreflang="es" href="https://astroaureum.com/es/">
+  <link rel="alternate" hreflang="en" href="https://astroaureum.com/en/">
+  <link rel="alternate" hreflang="bg" href="https://astroaureum.com/bg/">
+  <link rel="alternate" hreflang="fr" href="https://astroaureum.com/fr/">
+  <link rel="alternate" hreflang="de" href="https://astroaureum.com/de/">
+  <link rel="alternate" hreflang="it" href="https://astroaureum.com/it/">
+  <link rel="alternate" hreflang="pt" href="https://astroaureum.com/pt/">
+  <link rel="alternate" hreflang="ru" href="https://astroaureum.com/ru/">
+  <link rel="alternate" hreflang="zh" href="https://astroaureum.com/zh/">
+  <link rel="alternate" hreflang="ja" href="https://astroaureum.com/ja/">
+  <link rel="alternate" hreflang="ko" href="https://astroaureum.com/ko/">
+  <link rel="alternate" hreflang="ar" href="https://astroaureum.com/ar/">
+  <link rel="alternate" hreflang="hi" href="https://astroaureum.com/hi/">
+  <link rel="alternate" hreflang="tr" href="https://astroaureum.com/tr/">
+  <link rel="alternate" hreflang="nl" href="https://astroaureum.com/nl/">
+  <link rel="alternate" hreflang="sv" href="https://astroaureum.com/sv/">
+  <link rel="alternate" hreflang="pl" href="https://astroaureum.com/pl/">
+  <link rel="alternate" hreflang="ro" href="https://astroaureum.com/ro/">
+  <link rel="alternate" hreflang="el" href="https://astroaureum.com/el/">
+  <link rel="alternate" hreflang="th" href="https://astroaureum.com/th/">
+  <link rel="alternate" hreflang="vi" href="https://astroaureum.com/vi/">
+  <link rel="alternate" hreflang="id" href="https://astroaureum.com/id/">
+  <link rel="alternate" hreflang="he" href="https://astroaureum.com/he/">
+  <link rel="alternate" hreflang="uk" href="https://astroaureum.com/uk/">
+  <link rel="alternate" hreflang="cs" href="https://astroaureum.com/cs/">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#06050E">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -5464,6 +5464,8 @@ function setLanguage(code) {
   const lang = LANGS.find(l => l.code === code);
   document.documentElement.lang = code;
   document.documentElement.dir = lang ? lang.dir : 'ltr';
+  // Actualizar URL a /xx/
+  window.history.pushState({}, '', '/' + code + '/');
   // Actualizar meta tags para SEO dinamico
   document.title = 'Astro Aureum | ' + t('heroTitle');
   var metaDesc = document.querySelector('meta[name="description"]');
@@ -5476,26 +5478,37 @@ function setLanguage(code) {
   if (twTitle) twTitle.content = 'Astro Aureum | ' + t('heroTitle');
   var twDesc = document.querySelector('meta[property="twitter:description"]');
   if (twDesc) twDesc.content = t('heroSub') + ' — ' + t('heroDesc');
-  // Actualizar canonical con lang param
+  // Actualizar canonical con path de idioma
   var canonical = document.querySelector('link[rel="canonical"]');
-  if (canonical) canonical.href = code === 'es' ? 'https://astroaureum.com' : 'https://astroaureum.com?lang=' + code;
+  if (canonical) canonical.href = 'https://astroaureum.com/' + code + '/';
   renderAll();
 }
 
 function detectLanguage() {
-  // 1. URL param ?lang=xx tiene prioridad (para hreflang SEO)
+  // 1. URL path /xx/ tiene prioridad (SEO)
+  var pathMatch = window.location.pathname.match(/^\/([a-z]{2})\/?$/);
+  if (pathMatch) {
+    var pathLang = pathMatch[1];
+    var supported = LANGS.find(function(l) { return l.code === pathLang; });
+    if (supported) { currentLang = pathLang; currentLocale = pathLang; return; }
+  }
+  // 2. URL param ?lang=xx (compatibilidad con links antiguos)
   var urlParams = new URLSearchParams(window.location.search);
   var urlLang = urlParams.get('lang');
   if (urlLang) {
-    var supported = LANGS.find(l => l.code === urlLang);
-    if (supported) { currentLang = urlLang; currentLocale = urlLang; return; }
+    var supported2 = LANGS.find(function(l) { return l.code === urlLang; });
+    if (supported2) {
+      currentLang = urlLang; currentLocale = urlLang;
+      window.history.replaceState({}, '', '/' + urlLang + '/');
+      return;
+    }
   }
-  // 2. Fallback: idioma del navegador
+  // 3. Fallback: idioma del navegador
   var fullLocale = navigator.language || 'es-ES';
   currentLocale = fullLocale;
   var navLang = fullLocale.slice(0, 2);
-  var supported2 = LANGS.find(l => l.code === navLang);
-  if (supported2) currentLang = navLang;
+  var supported3 = LANGS.find(function(l) { return l.code === navLang; });
+  if (supported3) currentLang = navLang;
 }
 
 // === RENDER ALL ===
@@ -5803,7 +5816,7 @@ function buildShareCardUrl(title, intro, name, sign, date) {
 // === VIRAL SHARE SYSTEM ===
 function viralShare(platform, title, name) {
   var shareText = name + ' — ' + title + '\n\nDescubre tu destino cosmico:';
-  var shareUrl = 'https://astroaureum.com?lang=' + currentLang;
+  var shareUrl = 'https://astroaureum.com/' + currentLang + '/';
   var encoded = encodeURIComponent(shareText + '\n' + shareUrl);
   var encodedUrl = encodeURIComponent(shareUrl);
   switch(platform) {
@@ -5833,14 +5846,14 @@ function viralUnlock(btn) {
     navigator.share({
       title: 'Astro Aureum',
       text: 'Descubre tu destino cosmico',
-      url: 'https://astroaureum.com?lang=' + currentLang
+      url: 'https://astroaureum.com/' + currentLang + '/'
     }).then(function(){
       sessionStorage.setItem('viral_shared', '1');
       unlockBonus();
     }).catch(function(){});
   } else {
     // Fallback: copiar link
-    navigator.clipboard.writeText('https://astroaureum.com?lang=' + currentLang);
+    navigator.clipboard.writeText('https://astroaureum.com/' + currentLang + '/');
     sessionStorage.setItem('viral_shared', '1');
     unlockBonus();
   }
@@ -6233,7 +6246,7 @@ function initViralBar() {
 
 function viralFloatShare(platform) {
   var shareText = t('viralFloatText') || 'Conoce tu destino cosmico gratis';
-  var shareUrl = 'https://astroaureum.com?lang=' + currentLang;
+  var shareUrl = 'https://astroaureum.com/' + currentLang + '/';
   if (platform === 'whatsapp') {
     window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(shareText + '\n' + shareUrl), '_blank');
   } else if (platform === 'native') {
