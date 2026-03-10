@@ -1671,20 +1671,7 @@ body {
     <section id="horoscopo-diario"></section>
     <section id="faq"></section>
     <!-- Author Profile -->
-    <section style="max-width:680px;margin:0 auto 60px;padding:0 20px;">
-      <div style="border-radius:20px;padding:40px;text-align:center;border:1px solid rgba(212,168,67,0.15);background:linear-gradient(135deg,rgba(212,168,67,0.06),rgba(123,79,191,0.06));">
-        <div style="width:120px;height:120px;margin:0 auto 20px;border-radius:50%;padding:3px;background:linear-gradient(135deg,#D4A843,#916E2B,#D4A843);">
-          <img src="/assets/shivani.jpg" alt="Shivani Devi Bramayani" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" />
-        </div>
-        <h3 style="font-family:var(--font-heading);font-size:22px;color:#F7D96E;margin:0 0 4px;">Shivani Devi Bramayani</h3>
-        <p style="color:#C9AAFF;font-size:14px;font-weight:500;margin:0 0 16px;">Fundadora de Astro Aureum</p>
-        <p style="color:rgba(237,232,245,0.8);font-size:14px;line-height:1.7;max-width:480px;margin:0 auto;">
-          Maestra astróloga y guía espiritual con años de experiencia
-          en astrología. Dedicada a iluminar el camino
-          de cada alma a través de la sabiduría ancestral de los astros.
-        </p>
-      </div>
-    </section>
+    <section id="author-profile"></section>
 
     <section id="cta-section" class="cta-section"></section>
     <footer id="footer" class="footer"></footer>
@@ -3218,6 +3205,36 @@ cs: {
   viralFloatText: 'Objevte svůj kosmický osud zdarma', viralFloatShare: 'Sdílet'
 }
 };
+
+// Author Profile translations
+const AUTHOR_T = {
+  es: { role: 'Fundadora de Astro Aureum', bio: 'Maestra astróloga y guía espiritual con años de experiencia en astrología. Dedicada a iluminar el camino de cada alma a través de la sabiduría ancestral de los astros.' },
+  en: { role: 'Founder of Astro Aureum', bio: 'Master astrologer and spiritual guide with years of experience in astrology. Dedicated to illuminating the path of each soul through the ancestral wisdom of the stars.' },
+  bg: { role: 'Основател на Astro Aureum', bio: 'Майстор астролог и духовен наставник с години опит в астрологията. Посветена на осветяване пътя на всяка душа чрез древната мъдрост на звездите.' },
+  fr: { role: 'Fondatrice d\'Astro Aureum', bio: 'Maître astrologue et guide spirituelle avec des années d\'expérience en astrologie. Dédiée à illuminer le chemin de chaque âme à travers la sagesse ancestrale des étoiles.' },
+  de: { role: 'Gründerin von Astro Aureum', bio: 'Meisterastrologin und spirituelle Führerin mit jahrelanger Erfahrung in der Astrologie. Gewidmet der Erleuchtung des Weges jeder Seele durch die uralte Weisheit der Sterne.' },
+  it: { role: 'Fondatrice di Astro Aureum', bio: 'Maestra astrologa e guida spirituale con anni di esperienza in astrologia. Dedicata a illuminare il cammino di ogni anima attraverso la saggezza ancestrale delle stelle.' },
+  pt: { role: 'Fundadora da Astro Aureum', bio: 'Mestra astróloga e guia espiritual com anos de experiência em astrologia. Dedicada a iluminar o caminho de cada alma através da sabedoria ancestral das estrelas.' },
+  ru: { role: 'Основатель Astro Aureum', bio: 'Мастер-астролог и духовный наставник с многолетним опытом в астрологии. Посвящена освещению пути каждой души через древнюю мудрость звёзд.' },
+  zh: { role: 'Astro Aureum 创始人', bio: '资深占星大师和灵性导师，拥有多年占星经验。致力于通过星辰的古老智慧照亮每个灵魂的道路。' },
+  ja: { role: 'Astro Aureum 創設者', bio: '占星術の長年の経験を持つマスター占星術師でスピリチュアルガイド。星の古代の知恵を通じて各魂の道を照らすことに専念。' },
+  ko: { role: 'Astro Aureum 설립자', bio: '수년간의 점성술 경험을 가진 마스터 점성술사이자 영적 가이드. 별의 고대 지혜를 통해 각 영혼의 길을 밝히는 데 헌신.' },
+  ar: { role: 'مؤسسة Astro Aureum', bio: 'عالمة فلك رئيسية ومرشدة روحية مع سنوات من الخبرة في علم الفلك. مكرسة لإنارة طريق كل روح من خلال الحكمة القديمة للنجوم.' },
+  hi: { role: 'Astro Aureum की संस्थापक', bio: 'ज्योतिष में वर्षों के अनुभव वाली मास्टर ज्योतिषी और आध्यात्मिक मार्गदर्शक। सितारों की प्राचीन बुद्धि के माध्यम से हर आत्मा के मार्ग को रोशन करने के लिए समर्पित।' },
+  tr: { role: 'Astro Aureum Kurucusu', bio: 'Yıllarca astroloji deneyimine sahip usta astrolog ve ruhani rehber. Yıldızların kadim bilgeliği aracılığıyla her ruhun yolunu aydınlatmaya adanmış.' },
+  nl: { role: 'Oprichter van Astro Aureum', bio: 'Meester-astroloog en spiritueel gids met jarenlange ervaring in astrologie. Gewijd aan het verlichten van het pad van elke ziel door de oeroude wijsheid van de sterren.' },
+  sv: { role: 'Grundare av Astro Aureum', bio: 'Mästarastrolog och andlig guide med mångårig erfarenhet inom astrologi. Dedikerad till att belysa varje själs väg genom stjärnornas uråldriga visdom.' },
+  pl: { role: 'Założycielka Astro Aureum', bio: 'Mistrzyni astrolog i przewodnik duchowy z wieloletnim doświadczeniem w astrologii. Poświęcona oświecaniu drogi każdej duszy poprzez pradawną mądrość gwiazd.' },
+  ro: { role: 'Fondatoare Astro Aureum', bio: 'Maestru astrolog și ghid spiritual cu ani de experiență în astrologie. Dedicată iluminării drumului fiecărui suflet prin înțelepciunea ancestrală a stelelor.' },
+  el: { role: 'Ιδρύτρια του Astro Aureum', bio: 'Κορυφαία αστρολόγος και πνευματική οδηγός με πολυετή εμπειρία στην αστρολογία. Αφιερωμένη στο να φωτίζει το μονοπάτι κάθε ψυχής μέσα από την αρχαία σοφία των άστρων.' },
+  th: { role: 'ผู้ก่อตั้ง Astro Aureum', bio: 'นักโหราศาสตร์ระดับปรมาจารย์และผู้นำทางจิตวิญญาณที่มีประสบการณ์หลายปี อุทิศตนเพื่อส่องสว่างเส้นทางของทุกดวงวิญญาณผ่านภูมิปัญญาโบราณแห่งดวงดาว' },
+  vi: { role: 'Nhà sáng lập Astro Aureum', bio: 'Chuyên gia chiêm tinh bậc thầy và hướng dẫn tâm linh với nhiều năm kinh nghiệm. Cống hiến để soi sáng con đường của mỗi linh hồn qua trí tuệ cổ xưa của các vì sao.' },
+  id: { role: 'Pendiri Astro Aureum', bio: 'Ahli astrologi master dan pembimbing spiritual dengan pengalaman bertahun-tahun. Didedikasikan untuk menerangi jalan setiap jiwa melalui kebijaksanaan kuno bintang-bintang.' },
+  he: { role: 'מייסדת Astro Aureum', bio: 'אסטרולוגית ראשית ומדריכה רוחנית עם שנים של ניסיון באסטרולוגיה. מוקדשת להארת דרכה של כל נשמה דרך חוכמת הכוכבים העתיקה.' },
+  uk: { role: 'Засновниця Astro Aureum', bio: 'Майстер-астролог та духовний наставник з багаторічним досвідом в астрології. Присвячена висвітленню шляху кожної душі через давню мудрість зірок.' },
+  cs: { role: 'Zakladatelka Astro Aureum', bio: 'Mistryně astroložka a duchovní průvodkyně s dlouholetými zkušenostmi v astrologii. Oddaná osvětlování cesty každé duše skrze prastarou moudrost hvězd.' },
+};
+
 // ═══════════════════════════════════════════════════
 // ═══════════════════════════════════════════════════
 // PAYMENT CONFIGURATION — Stripe + PayPal
@@ -4776,6 +4793,23 @@ function toggleFaq(el) {
   }
 }
 
+// === RENDER AUTHOR PROFILE ===
+function renderAuthor() {
+  var sec = document.getElementById('author-profile');
+  var a = AUTHOR_T[currentLang] || AUTHOR_T.es;
+  sec.innerHTML = `
+    <div style="max-width:680px;margin:0 auto 60px;padding:0 20px;">
+      <div style="border-radius:20px;padding:40px;text-align:center;border:1px solid rgba(212,168,67,0.15);background:linear-gradient(135deg,rgba(212,168,67,0.06),rgba(123,79,191,0.06));">
+        <div style="width:120px;height:120px;margin:0 auto 20px;border-radius:50%;padding:3px;background:linear-gradient(135deg,#D4A843,#916E2B,#D4A843);">
+          <img src="/assets/shivani.jpg" alt="Shivani Devi Bramayani" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" />
+        </div>
+        <h3 style="font-family:var(--font-heading);font-size:22px;color:#F7D96E;margin:0 0 4px;">Shivani Devi Bramayani</h3>
+        <p style="color:#C9AAFF;font-size:14px;font-weight:500;margin:0 0 16px;">${a.role}</p>
+        <p style="color:rgba(237,232,245,0.8);font-size:14px;line-height:1.7;max-width:480px;margin:0 auto;">${a.bio}</p>
+      </div>
+    </div>`;
+}
+
 // === RENDER CTA ===
 function renderCTA() {
   const sec = document.getElementById('cta-section');
@@ -5531,6 +5565,7 @@ function renderAll() {
   renderTestimonials();
   renderDailyHoroscope();
   renderFAQ();
+  renderAuthor();
   renderCTA();
   renderFooter();
   // Re-init scroll reveal after re-render
