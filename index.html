@@ -3012,7 +3012,7 @@ function renderHero() {
     </div>
     <div class="hero-btns">
       <button class="btn-gold" onclick="openProductModal('mega-carta')">${t('heroBtn1')}</button>
-      <button class="btn-lead" onclick="openLeadMagnetModal(null,'suerte-semanal')">${t('heroLeadEconomy') || '✦ Predicción de Suerte GRATIS'}</button>
+      <button class="btn-lead" onclick="openLeadMagnetModal(null,'mapa-energetico-30')">${t('heroLeadFree') || '✦ Mi Mapa Energético GRATIS'}</button>
     </div>
     <p class="hero-sub-small">${t('heroSub')}</p>
     <div class="hero-stats">
@@ -3319,7 +3319,7 @@ function submitDailySubscribe(e) {
   var fd = new FormData(form);
 
   btn.disabled = true;
-  btn.textContent = t('leadLoading') || 'Las estrellas estan calculando...';
+  btn.textContent = t('leadLoading30') || 'Calculando tu mapa energético de 30 días...';
 
   fetch('https://my.astroaureum.com/api/subscribe-horoscope', {
     method: 'POST',
@@ -4323,7 +4323,7 @@ function heroRevealDestiny() {
     setTimeout(function() { dateInput.style.boxShadow = ''; }, 1500);
     return;
   }
-  openLeadMagnetModal(birthDate, 'auditoria-astral');
+  openLeadMagnetModal(birthDate, 'mapa-energetico-30');
 }
 
 function ctaRevealDestiny() {
@@ -4336,15 +4336,13 @@ function ctaRevealDestiny() {
     setTimeout(function() { dateInput.style.boxShadow = ''; }, 1500);
     return;
   }
-  openLeadMagnetModal(birthDate, 'auditoria-astral');
+  openLeadMagnetModal(birthDate, 'mapa-energetico-30');
 }
 
 // === LEAD MAGNET ===
 function openLeadMagnetModal(preBirthDate, forceType) {
-  var leadType = forceType || 'suerte-semanal';
-  var modalTitle = leadType === 'auditoria-astral'
-    ? (t('leadTitlePremium') || 'Mapa del Alma')
-    : (t('leadTitleEconomy') || 'Tu Predicción de Suerte Personalizada');
+  var leadType = 'mapa-energetico-30';
+  var modalTitle = t('leadTitle30') || 'Tu Mapa Energético de los Próximos 30 Días';
 
   var overlay = document.getElementById('lead-modal-overlay');
   if (!overlay) {
@@ -4360,7 +4358,7 @@ function openLeadMagnetModal(preBirthDate, forceType) {
       <button class="lead-close" onclick="closeLeadModal()">&times;</button>
       <div style="text-align:center;font-size:2.5rem;margin-bottom:12px;">✦</div>
       <h2>${modalTitle}</h2>
-      <p class="lead-sub">${t('leadSub') || 'Descubre lo que las estrellas tienen para ti'}</p>
+      <p class="lead-sub">${t('leadSub30') || 'Descubre qué días son de poder, cuáles evitar y cómo aprovechar tu energía este mes'}</p>
       <form id="lead-form" onsubmit="submitLeadMagnet(event)">
         <input type="hidden" name="leadType" value="${leadType}">
         <label>${t('fName') || 'Nombre completo'}</label>
@@ -4375,7 +4373,7 @@ function openLeadMagnetModal(preBirthDate, forceType) {
         <input type="text" name="birthCountry" placeholder="${t('fCountry') || 'Pais de nacimiento'}">
         <label>${t('fEmailOpt') || 'Email'} <span style="color:#6B5B8D;font-size:0.8rem">(${t('fOptional') || 'opcional'})</span></label>
         <input type="email" name="email" placeholder="${t('fEmailOptPlaceholder') || 'Si quieres recibir tu lectura por email'}">
-        <button type="submit" class="lead-submit" id="lead-submit-btn">${t('leadSubmit') || 'Obtener mi lectura GRATIS'}</button>
+        <button type="submit" class="lead-submit" id="lead-submit-btn">${t('leadSubmit30') || 'Ver mi Mapa Energético GRATIS'}</button>
       </form>
     </div>`;
   requestAnimationFrame(function() {
@@ -4399,7 +4397,7 @@ function submitLeadMagnet(e) {
   var fd = new FormData(form);
 
   btn.disabled = true;
-  btn.textContent = t('leadLoading') || 'Las estrellas estan calculando...';
+  btn.textContent = t('leadLoading30') || 'Calculando tu mapa energético de 30 días...';
 
   var body = {
     email: fd.get('email') || '',
