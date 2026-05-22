@@ -58,6 +58,62 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://astroaureum.com/zh/carta-natal.html" />
   </url>
   <url>
+    <loc>https://astroaureum.com/compatibilidad-zodiacal.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://astroaureum.com/compatibilidad-zodiacal.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://astroaureum.com/compatibilidad-zodiacal.html" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://astroaureum.com/bg/compatibilidad-zodiacal.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://astroaureum.com/en/zodiac-compatibility.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://astroaureum.com/pt/compatibilidade-zodiacal.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://astroaureum.com/fr/compatibilite-zodiacale.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://astroaureum.com/de/sternzeichen-kompatibilitaet.html" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://astroaureum.com/it/compatibilita-zodiacale.html" />
+  </url>
+  <url>
+    <loc>https://astroaureum.com/revolucion-solar.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://astroaureum.com/revolucion-solar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://astroaureum.com/revolucion-solar.html" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://astroaureum.com/bg/revolucion-solar.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://astroaureum.com/en/solar-return.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://astroaureum.com/pt/revolucao-solar.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://astroaureum.com/fr/revolution-solaire.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://astroaureum.com/de/solar-return.html" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://astroaureum.com/it/rivoluzione-solare.html" />
+  </url>
+  <url>
+    <loc>https://astroaureum.com/mercurio-retrogrado.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://astroaureum.com/mercurio-retrogrado.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://astroaureum.com/mercurio-retrogrado.html" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://astroaureum.com/bg/mercurio-retrogrado.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://astroaureum.com/en/mercury-retrograde.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://astroaureum.com/pt/mercurio-retrogrado.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://astroaureum.com/fr/mercure-retrograde.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://astroaureum.com/de/merkur-rueckläufig.html" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://astroaureum.com/it/mercurio-retrogrado.html" />
+  </url>
+  <url>
+    <loc>https://astroaureum.com/astrologia-vedica.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://astroaureum.com/astrologia-vedica.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://astroaureum.com/astrologia-vedica.html" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://astroaureum.com/bg/astrologia-vedica.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://astroaureum.com/en/vedic-astrology.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://astroaureum.com/pt/astrologia-vedica.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://astroaureum.com/fr/astrologie-vedique.html" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://astroaureum.com/de/vedische-astrologie.html" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://astroaureum.com/it/astrologia-vedica.html" />
+  </url>
+  <url>
     <loc>https://astroaureum.com/horoscopo-diario.html</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>daily</changefreq>
